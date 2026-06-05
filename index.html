@@ -13,7 +13,7 @@
   </head>
   <body>
     <main>
-      <section class="hero" aria-labelledby="site-title">
+      <section class="hero" id="top" aria-labelledby="site-title">
         <div class="hero__inner">
           <h1 id="site-title" class="sr-only">Haus of Balloons</h1>
           <img
@@ -146,12 +146,152 @@
         </div>
       </section>
 
-      <section class="blank-section" id="get-in-touch" aria-labelledby="get-in-touch-title">
+      <section class="blank-section contact" id="get-in-touch" aria-labelledby="get-in-touch-title">
         <div class="section-shell">
           <h2 id="get-in-touch-title">Get in touch</h2>
+          <p class="contact__intro">
+            Tell us about your event and we&rsquo;ll send a custom quote within 48 hours.
+            Based in Toronto and Vancouver, we design balloon garlands, backdrops, and
+            full installations across the GTA and Greater Vancouver.
+          </p>
+
+          <form
+            class="quote-form"
+            name="quote"
+            method="POST"
+            data-netlify="true"
+            netlify-honeypot="bot-field"
+            action="/thank-you"
+          >
+            <input type="hidden" name="form-name" value="quote">
+            <p class="hidden" aria-hidden="true">
+              <label>Don&rsquo;t fill this out if you&rsquo;re human: <input name="bot-field"></label>
+            </p>
+
+            <div class="quote-form__field">
+              <label for="name">Name <span class="req">*</span></label>
+              <input id="name" name="name" type="text" autocomplete="name" required aria-required="true">
+            </div>
+
+            <div class="quote-form__field">
+              <label for="email">Email <span class="req">*</span></label>
+              <input id="email" name="email" type="email" autocomplete="email" required aria-required="true">
+            </div>
+
+            <div class="quote-form__field">
+              <label for="phone">Phone</label>
+              <input id="phone" name="phone" type="tel" autocomplete="tel">
+            </div>
+
+            <div class="quote-form__field">
+              <label for="event-date">Event date <span class="req">*</span></label>
+              <input id="event-date" name="event-date" type="date" required aria-required="true">
+            </div>
+
+            <div class="quote-form__field">
+              <label for="event-type">Event type <span class="req">*</span></label>
+              <select id="event-type" name="event-type" required aria-required="true">
+                <option value="" disabled selected>Select one&hellip;</option>
+                <option>Birthday</option>
+                <option>Baby shower</option>
+                <option>Wedding</option>
+                <option>Corporate / Brand</option>
+                <option>Anniversary</option>
+                <option>Other</option>
+              </select>
+            </div>
+
+            <div class="quote-form__field">
+              <label for="event-location">Event location / city <span class="req">*</span></label>
+              <input id="event-location" name="event-location" type="text" placeholder="e.g. Toronto, Vancouver, Burnaby&hellip;" required aria-required="true">
+            </div>
+
+            <div class="quote-form__field">
+              <label for="package">Package of interest</label>
+              <select id="package" name="package">
+                <option value="" disabled selected>Select one&hellip;</option>
+                <option>Basic</option>
+                <option>Premium</option>
+                <option>Luxury</option>
+                <option>Corporate</option>
+                <option>Not sure / custom</option>
+              </select>
+            </div>
+
+            <div class="quote-form__field">
+              <label for="budget">Estimated budget</label>
+              <select id="budget" name="budget">
+                <option value="" disabled selected>Select one&hellip;</option>
+                <option>Under $500</option>
+                <option>$500&ndash;$1,000</option>
+                <option>$1,000&ndash;$2,000</option>
+                <option>$2,000+</option>
+                <option>Not sure</option>
+              </select>
+            </div>
+
+            <div class="quote-form__field quote-form__field--full">
+              <label for="theme">Colors / theme / inspiration</label>
+              <input id="theme" name="theme" type="text" placeholder="Palette, vibe, or a link to inspiration">
+            </div>
+
+            <div class="quote-form__field quote-form__field--full">
+              <label for="message">Message / event details <span class="req">*</span></label>
+              <textarea id="message" name="message" rows="5" required aria-required="true"></textarea>
+            </div>
+
+            <div class="quote-form__actions quote-form__field--full">
+              <button type="submit" class="btn btn--primary">Request my quote</button>
+              <p class="quote-form__fallback">
+                Prefer email? Reach us at
+                <a href="mailto:hausofballoons.ca@gmail.com">hausofballoons.ca@gmail.com</a>.
+              </p>
+            </div>
+          </form>
         </div>
       </section>
     </main>
+
+    <footer class="site-footer" aria-labelledby="footer-title">
+      <h2 id="footer-title" class="sr-only">Site footer</h2>
+      <div class="section-shell site-footer__inner">
+        <div class="site-footer__brand">
+          <img
+            class="site-footer__logo"
+            src="assets/logo_text.svg"
+            alt="Haus of Balloons"
+            width="1500"
+            height="1500"
+          >
+          <p class="site-footer__tagline">
+            Bespoke balloon garlands &amp; installations for unforgettable events.
+          </p>
+        </div>
+
+        <nav class="site-footer__col" aria-label="Footer">
+          <h3>Explore</h3>
+          <ul>
+            <li><a href="#how-it-works">How it works</a></li>
+            <li><a href="#packages">Packages</a></li>
+            <li><a href="#get-in-touch">Get a quote</a></li>
+          </ul>
+        </nav>
+
+        <div class="site-footer__col">
+          <h3>Contact</h3>
+          <ul>
+            <li><a href="mailto:hausofballoons.ca@gmail.com">hausofballoons.ca@gmail.com</a></li>
+            <li><a href="https://instagram.com/hausofballoons.ca" target="_blank" rel="noopener">@hausofballoons.ca</a></li>
+            <li class="site-footer__area">Serving Toronto (GTA) &amp; Vancouver (Greater Vancouver)</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="section-shell site-footer__bar">
+        <p>&copy; 2026 Haus of Balloons</p>
+        <a class="site-footer__top" href="#top">Back to top &uarr;</a>
+      </div>
+    </footer>
 
     <script src="main.js"></script>
   </body>

@@ -78,4 +78,19 @@
   section, absent footer, disappearing nav, unloaded font, and asset bloat.
 - **Wrote design spec** for the quote form + footer:
   `docs/superpowers/specs/2026-06-04-quote-form-and-footer-design.md`. Captured
-  decisions D1–D5 above. Implementation pending owner sign-off on the spec.
+  decisions D1–D5 above. Spec approved by owner.
+- **Pushed to GitHub:** added the `origin` remote and pushed `main` to
+  `github.com/AmirNcode/hausofballoons`.
+- **Implemented the quote form + footer:**
+  - `index.html`: built the Netlify quote form inside `#get-in-touch` (name,
+    email, phone, event date, event type, location, package, budget, colors/theme,
+    message; invisible honeypot; `action="/thank-you"`; mailto fallback). Added the
+    site `<footer>` (brand + tagline, quick links, contact, service area,
+    back-to-top) and gave the hero `id="top"` for the back-to-top anchor.
+  - Added `thank-you/index.html` — branded confirmation page (`noindex`) with
+    Instagram + back-home buttons; uses root-absolute asset paths.
+  - `styles.css`: added reusable `.btn` styles, the quote-form styles, the footer
+    styles, the thank-you-page styles, and mobile stacking — all built on the
+    existing brand tokens. `main.js` unchanged (form is native Netlify POST).
+  - Verified rendering on desktop + mobile via local preview. The Netlify form
+    submission/redirect itself can only be fully verified after deploy.
