@@ -69,12 +69,43 @@ function setupInstagramEmbed() {
   observer.observe(instagramSection);
 }
 
+// Reveal the "How it works" steps as they scroll into view (reduced-motion safe).
+function setupReveal() {
+  const list = document.querySelector(".process-list");
+  if (!list) return;
+
+  const steps = Array.from(list.querySelectorAll(".process-step"));
+  if (!steps.length || prefersReducedMotion.matches || !("IntersectionObserver" in window)) {
+    return;
+  }
+
+  list.classList.add("js-anim");
+
+  const observer = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add("is-visible");
+          observer.unobserve(entry.target);
+        }
+      });
+    },
+    { rootMargin: "0px 0px -8% 0px", threshold: 0.12 }
+  );
+
+  steps.forEach((step, index) => {
+    step.style.transitionDelay = index * 90 + "ms";
+    observer.observe(step);
+  });
+}
+
 window.addEventListener("scroll", requestScrollUpdate, { passive: true });
 window.addEventListener("resize", requestScrollUpdate);
 prefersReducedMotion.addEventListener("change", requestScrollUpdate);
 document.addEventListener("DOMContentLoaded", () => {
   requestScrollUpdate();
   setupInstagramEmbed();
+  setupReveal();
 });
 
 requestScrollUpdate();

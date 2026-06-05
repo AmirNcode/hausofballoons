@@ -59,7 +59,8 @@
 
 - SEO foundation: **done** (2026-06-04). Remaining: post-deploy steps (submit the
   sitemap in Google Search Console; swap the placeholder OG image for a real photo).
-- "How it works" section is functional but plain — owner wants it spruced up.
+- "How it works": **done** (2026-06-05) — icons, ghost numerals, flow arrows, tinted
+  cards, expectations line, 4th "Enjoy & tag us" step, end CTA, and scroll-reveal.
 - Instagram section now shows the first real reel via the **official Instagram
   embed**. More reels are coming over the next couple of weeks — add each as another
   `<blockquote class="instagram-media" …>` inside the `.reel-embeds` container (the
@@ -76,6 +77,18 @@
 
 ### 2026-06-05
 
+- **"How it works" section upgrade** (all the brainstormed options):
+  - Restyled the steps into **cards** on a tinted section (`#f9f1f1`), which breaks the
+    all-white run across Packages / How it works / Get in touch.
+  - Per-step **line icons** (gift, chat, balloon arch, camera), **oversized ghost
+    numerals** (01–04), and **connecting flow arrows** (horizontal on desktop, downward
+    when stacked on mobile).
+  - Added an **expectations line** ("Most quotes within 48 hours…"), a **4th step
+    "Enjoy & tag us"** linking Instagram (UGC nudge), and an end **CTA**
+    ("Start your quote →") to `#get-in-touch`.
+  - **Scroll-reveal** for the steps via IntersectionObserver in `main.js` (staggered
+    fade/slide-in; gated off under `prefers-reduced-motion`). Decoupled the old
+    `.process-list` styles from the shared package-card selectors.
 - **Nav reorder:** site-nav (and the footer "Explore" list) now read **Packages ·
   How it works · Get in touch** (matches the section order on the page).
 - **Favicon rebuilt** from `assets/balloon.svg` as a rounded **white square** (`rx`)
