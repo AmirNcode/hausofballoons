@@ -96,6 +96,16 @@
     on the hero/thank-you logos.
   - Verified in-browser: deleted assets 404, WebP logo + rounded favicon render
     correctly, the lazy-embed render path works, nav order correct.
+- **Follow-up fixes (same day):**
+  - **Logo transparency:** the first WebP came out **opaque** — `qlmanage` flattened
+    the transparent background to white, which showed as a white box over the
+    expanding red circle. Re-rendered it **transparent** with `sharp` (37 KB, alpha
+    preserved, filters/colour intact), restoring the logo dissolving into the red
+    circle. (Lesson: `qlmanage` composites SVGs on white; use `sharp` for alpha.)
+  - **Favicon:** flattened the SVG (removed a nested `<svg>` that some browsers'
+    tab-icon renderers don't handle) and regenerated `favicon-32.png`. The red balloon
+    shows clearly on the white rounded tile. Note: browser favicon caching is sticky —
+    a hard refresh may be needed to see it locally; first Netlify deploy is unaffected.
 
 ### 2026-06-04
 
