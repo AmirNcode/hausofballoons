@@ -17,11 +17,11 @@
 - **Key files:**
   - `index.html` — the whole site (hero, Instagram reels, packages, how-it-works, get-in-touch)
   - `styles.css` — all styles
-  - `main.js` — scroll-circle hero animation + lazy video playback
-  - `assets/` — logo (`logo_text.svg`), balloon/circle SVGs, placeholder reel video
-  - `docs/superpowers/specs/` — design specs
+  - `main.js` — scroll-circle hero animation + lazy-loads the Instagram embed
+  - `assets/` — optimized logo (`logo_text.webp`, ~28 KB), `balloon.svg`, `og-image.png`
+  - `docs/superpowers/specs/` — design specs; `docs/reference/` — design PDF
 - **Brand:** deep red `#8d0b0b` on white. Headings in Georgia serif; the logo is a
-  custom display wordmark baked into `logo_text.svg` (balloon as the "O").
+  custom display wordmark (`logo_text.webp`, with the balloon as the "O").
 
 ## Business facts (current source of truth)
 
@@ -57,9 +57,8 @@
 
 ## Known issues / backlog (not yet addressed)
 
-- SEO foundation: **done** (2026-06-04). Remaining: Core Web Vitals / performance
-  (332 KB logo, lazy-load `embed.js`) and post-deploy steps (submit the sitemap in
-  Google Search Console; swap the placeholder OG image for a real photo).
+- SEO foundation: **done** (2026-06-04). Remaining: post-deploy steps (submit the
+  sitemap in Google Search Console; swap the placeholder OG image for a real photo).
 - "How it works" section is functional but plain — owner wants it spruced up.
 - Instagram section now shows the first real reel via the **official Instagram
   embed**. More reels are coming over the next couple of weeks — add each as another
@@ -67,14 +66,36 @@
   layout already centers/wraps multiple embeds).
 - Fonts: `styles.css` references "Glacial Indifference" but it's never loaded, so
   non-Apple visitors get a fallback system font. Decide whether to self-host it.
-- Performance / cleanup: `logo_text.svg` is ~332 KB; duplicate SVGs and a 7.4 MB
-  placeholder video (`demo_ig_video.mp4`, now **unused** after the embed swap) exist
-  at both the repo root and in `assets/`; unused `demo/` folder. Safe to delete in a
-  cleanup pass.
+- Performance / cleanup: **done** (2026-06-05) — logo → 28 KB WebP, removed ~15.5 MB
+  of unused files, lazy-loaded `embed.js`. Remaining nice-to-have: a `<picture>` PNG
+  fallback for the logo (currently WebP-only) for very old browsers.
 
 ---
 
 ## Changelog
+
+### 2026-06-05
+
+- **Nav reorder:** site-nav (and the footer "Explore" list) now read **Packages ·
+  How it works · Get in touch** (matches the section order on the page).
+- **Favicon rebuilt** from `assets/balloon.svg` as a rounded **white square** (`rx`)
+  with the red balloon; regenerated `favicon-32.png`. `apple-touch-icon.png` stays a
+  full white square (iOS applies its own rounding).
+- **Performance / cleanup pass:**
+  - **Logo: 332 KB → 28 KB.** `logo_text.svg` was actually an embedded base64 PNG +
+    recolor filters (not vector). Rasterized it (filters intact) and replaced it with
+    `assets/logo_text.webp` everywhere (hero, footer, thank-you, preload, JSON-LD).
+    **WebP-only** — universal in 2026; very old browsers fall back to alt text.
+  - **Removed ~15.5 MB of dead weight:** root duplicate `logo_text.svg` / `balloon.svg`,
+    both 7.4 MB `demo_ig_video.mp4` copies, `assets/circle.svg`, and the `demo/`
+    prototype folder. Moved `hob_web.pdf` → `docs/reference/`. (All confirmed unreferenced.)
+  - **Lazy-loaded Instagram `embed.js`** via IntersectionObserver in `main.js` (loads
+    only when the Instagram section nears the viewport; never on hero-only visits) and
+    removed the now-dead `<video>`-playback code.
+  - Added `loading="lazy"`/`decoding="async"` to the footer logo; `decoding="async"`
+    on the hero/thank-you logos.
+  - Verified in-browser: deleted assets 404, WebP logo + rounded favicon render
+    correctly, the lazy-embed render path works, nav order correct.
 
 ### 2026-06-04
 

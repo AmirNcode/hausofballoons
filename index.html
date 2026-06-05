@@ -33,7 +33,7 @@
     <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png">
     <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 
-    <link rel="preload" href="assets/logo_text.svg" as="image">
+    <link rel="preload" href="assets/logo_text.webp" as="image" type="image/webp">
     <link rel="stylesheet" href="styles.css">
 
     <script type="application/ld+json">
@@ -55,7 +55,7 @@
           "description": "Bespoke balloon garlands, backdrops, and event installations serving the Greater Toronto Area and Greater Vancouver.",
           "url": "https://hausofballoons.ca/",
           "image": "https://hausofballoons.ca/assets/og-image.png",
-          "logo": "https://hausofballoons.ca/assets/logo_text.svg",
+          "logo": "https://hausofballoons.ca/assets/logo_text.webp",
           "email": "hausofballoons.ca@gmail.com",
           "priceRange": "$$",
           "currenciesAccepted": "CAD",
@@ -91,15 +91,16 @@
           <h1 id="site-title" class="sr-only">Haus of Balloons — balloon garlands, backdrops &amp; event decor in Toronto &amp; Vancouver</h1>
           <img
             class="hero__logo"
-            src="assets/logo_text.svg"
+            src="assets/logo_text.webp"
             alt="Haus of Balloons"
             width="1500"
             height="1500"
+            decoding="async"
           >
 
           <nav class="site-nav" aria-label="Primary">
-            <a href="#how-it-works">How it works</a>
             <a href="#packages">Packages</a>
+            <a href="#how-it-works">How it works</a>
             <a href="#get-in-touch">Get in touch</a>
           </nav>
         </div>
@@ -323,10 +324,12 @@
         <div class="site-footer__brand">
           <img
             class="site-footer__logo"
-            src="assets/logo_text.svg"
+            src="assets/logo_text.webp"
             alt="Haus of Balloons"
             width="1500"
             height="1500"
+            loading="lazy"
+            decoding="async"
           >
           <p class="site-footer__tagline">
             Bespoke balloon garlands &amp; installations for unforgettable events.
@@ -336,8 +339,8 @@
         <nav class="site-footer__col" aria-label="Footer">
           <h3>Explore</h3>
           <ul>
-            <li><a href="#how-it-works">How it works</a></li>
             <li><a href="#packages">Packages</a></li>
+            <li><a href="#how-it-works">How it works</a></li>
             <li><a href="#get-in-touch">Get a quote</a></li>
           </ul>
         </nav>
@@ -359,6 +362,5 @@
     </footer>
 
     <script src="main.js"></script>
-    <script async src="https://www.instagram.com/embed.js"></script>
   </body>
 </html>

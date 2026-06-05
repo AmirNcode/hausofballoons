@@ -2,7 +2,6 @@ const root = document.documentElement;
 const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
 const circle = document.querySelector(".scroll-circle");
 const instagramSection = document.querySelector(".instagram");
-const videos = Array.from(document.querySelectorAll(".reel-card video"));
 
 let ticking = false;
 
@@ -32,34 +31,42 @@ function requestScrollUpdate() {
   }
 }
 
-function playVideo(video) {
-  video.play().catch(() => {
-    video.controls = true;
-  });
-}
+// Defer Instagram's embed.js until the Instagram section nears the viewport, so it
+// never blocks the initial load (and never loads at all for hero-only visits).
+function setupInstagramEmbed() {
+  if (!instagramSection) return;
 
-function setupVideoPlayback() {
+  let loaded = false;
+  const load = () => {
+    if (loaded) return;
+    loaded = true;
+    const script = document.createElement("script");
+    script.async = true;
+    script.src = "https://www.instagram.com/embed.js";
+    script.onload = () => {
+      if (window.instgrm && window.instgrm.Embeds) {
+        window.instgrm.Embeds.process();
+      }
+    };
+    document.body.appendChild(script);
+  };
+
   if (!("IntersectionObserver" in window)) {
-    videos.forEach(playVideo);
+    load();
     return;
   }
 
   const observer = new IntersectionObserver(
     (entries) => {
-      entries.forEach((entry) => {
-        const video = entry.target;
-
-        if (entry.isIntersecting) {
-          playVideo(video);
-        } else {
-          video.pause();
-        }
-      });
+      if (entries.some((entry) => entry.isIntersecting)) {
+        load();
+        observer.disconnect();
+      }
     },
-    { rootMargin: "220px 0px", threshold: 0.1 }
+    { rootMargin: "500px 0px" }
   );
 
-  videos.forEach((video) => observer.observe(video));
+  observer.observe(instagramSection);
 }
 
 window.addEventListener("scroll", requestScrollUpdate, { passive: true });
@@ -67,7 +74,7 @@ window.addEventListener("resize", requestScrollUpdate);
 prefersReducedMotion.addEventListener("change", requestScrollUpdate);
 document.addEventListener("DOMContentLoaded", () => {
   requestScrollUpdate();
-  setupVideoPlayback();
+  setupInstagramEmbed();
 });
 
 requestScrollUpdate();
