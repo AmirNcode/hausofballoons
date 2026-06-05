@@ -89,6 +89,11 @@
   - **Scroll-reveal** for the steps via IntersectionObserver in `main.js` (staggered
     fade/slide-in; gated off under `prefers-reduced-motion`). Decoupled the old
     `.process-list` styles from the shared package-card selectors.
+  - **Refined per feedback (same day):** the first version felt crowded/squished —
+    one icon rendered skewed and the chevrons lacked margin on narrow screens. Removed
+    the per-step **icons** and the connecting **arrows**, moved the step **numbers to
+    the top-left** as solid brand-red anchors, and gave the cards more padding + softer
+    borders for a cleaner look.
 - **Nav reorder:** site-nav (and the footer "Explore" list) now read **Packages ·
   How it works · Get in touch** (matches the section order on the page).
 - **Favicon rebuilt** from `assets/balloon.svg` as a rounded **white square** (`rx`)

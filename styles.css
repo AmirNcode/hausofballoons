@@ -328,86 +328,46 @@ a {
 .process-list {
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));
-  gap: clamp(16px, 1.8vw, 26px);
+  gap: clamp(20px, 2.2vw, 32px);
   padding: 0;
   margin: clamp(32px, 5vw, 60px) 0 0;
   list-style: none;
 }
 
 .process-step {
-  position: relative;
-  display: grid;
-  grid-template-columns: auto 1fr;
-  align-items: center;
-  column-gap: 12px;
-  row-gap: 12px;
-  padding: clamp(20px, 2vw, 30px);
+  display: flex;
+  flex-direction: column;
+  padding: clamp(28px, 2.6vw, 40px) clamp(24px, 2.2vw, 32px);
   background: var(--white);
-  border: 1px solid rgba(141, 11, 11, 0.16);
-  border-radius: 14px;
-  box-shadow: 0 12px 28px rgba(141, 11, 11, 0.06);
-}
-
-.process-step__icon {
-  grid-column: 1;
-  grid-row: 1;
-  display: inline-flex;
-  width: 40px;
-  height: 40px;
-  color: var(--brand-red);
-}
-
-.process-step__icon svg {
-  width: 100%;
-  height: 100%;
+  border: 1px solid rgba(141, 11, 11, 0.1);
+  border-radius: 16px;
+  box-shadow: 0 16px 36px rgba(141, 11, 11, 0.05);
 }
 
 .process-step__num {
-  grid-column: 2;
-  grid-row: 1;
-  justify-self: end;
   font-family: Georgia, "Times New Roman", serif;
-  font-size: 3.6rem;
-  font-weight: 900;
+  font-size: clamp(2.1rem, 2.5vw, 2.6rem);
+  font-weight: 700;
   line-height: 1;
-  color: rgba(141, 11, 11, 0.16);
-  pointer-events: none;
+  color: var(--brand-red);
 }
 
 .process-step h3 {
-  grid-column: 1 / -1;
-  grid-row: 2;
-  margin: 4px 0 0;
+  margin: 16px 0 0;
   font-family: Georgia, "Times New Roman", serif;
   font-size: clamp(1.3rem, 1.7vw, 1.6rem);
-  line-height: 1.1;
+  line-height: 1.15;
 }
 
 .process-step p {
-  grid-column: 1 / -1;
-  grid-row: 3;
-  margin: 0;
+  margin: 9px 0 0;
   font-size: clamp(0.95rem, 1.15vw, 1.04rem);
-  line-height: 1.5;
+  line-height: 1.55;
 }
 
 .process-step a {
   font-weight: 600;
   text-underline-offset: 2px;
-}
-
-/* connecting flow arrow (horizontal between cards) */
-.process-step:not(:last-child)::after {
-  content: "";
-  position: absolute;
-  z-index: 1;
-  top: 50%;
-  right: -15px;
-  width: 11px;
-  height: 11px;
-  border-top: 2px solid rgba(141, 11, 11, 0.4);
-  border-right: 2px solid rgba(141, 11, 11, 0.4);
-  transform: translateY(-50%) rotate(45deg);
 }
 
 .how__cta {
@@ -434,14 +394,6 @@ a {
     grid-template-columns: 1fr;
     width: min(560px, 100%);
     margin-inline: auto;
-  }
-
-  /* arrow points downward between stacked cards */
-  .process-step:not(:last-child)::after {
-    top: auto;
-    right: 50%;
-    bottom: -15px;
-    transform: translateX(50%) rotate(135deg);
   }
 }
 
