@@ -1,0 +1,27 @@
+<!--
+  Share image SOURCE. Authored as 1200x1200 (qlmanage rasterizes square SVGs 1:1);
+  the build crops the centered 1200x630 band (rows 285-915) to produce og-image.png.
+  Content is laid out within that band. Swap in a real photo of your work anytime.
+-->
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="1200" viewBox="0 0 1200 1200">
+  <rect width="1200" height="1200" fill="#ffffff"/>
+  <rect x="40" y="320" width="1120" height="560" fill="none" stroke="#8d0b0b" stroke-width="3" opacity="0.22"/>
+
+  <!-- balloon accent -->
+  <svg x="555" y="350" width="90" height="90" viewBox="0 0 1500 1500">
+    <defs>
+      <radialGradient id="balloon-red" cx="38%" cy="32%" r="70%">
+        <stop offset="0%" stop-color="#bd1414"/>
+        <stop offset="48%" stop-color="#930b0b"/>
+        <stop offset="100%" stop-color="#7b0707"/>
+      </radialGradient>
+    </defs>
+    <path fill="url(#balloon-red)" d="M750 1310c-151 0-285-63-383-178-96-113-149-268-149-437 0-169 53-324 149-437C465 143 599 80 750 80s285 63 383 178c96 113 149 268 149 437 0 169-53 324-149 437-98 115-232 178-383 178Z"/>
+    <path fill="#fff" d="M363 598c23-159 113-290 244-354 18-9 39-1 48 17 8 18 0 39-18 48-109 53-184 164-203 299-3 18-18 31-36 31-2 0-4 0-6-1-20-3-33-21-29-40Z" opacity=".94"/>
+    <path fill="#8d0b0b" d="M750 1264 637 1450h226L750 1264Z"/>
+  </svg>
+
+  <text x="600" y="615" text-anchor="middle" font-family="Georgia, 'Times New Roman', serif" font-weight="700" font-size="108" fill="#8d0b0b">Haus of Balloons</text>
+  <text x="600" y="693" text-anchor="middle" font-family="Georgia, 'Times New Roman', serif" font-size="38" fill="#8d0b0b">Balloon garlands, backdrops &amp; event installations</text>
+  <text x="600" y="765" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="30" letter-spacing="4" fill="#8d0b0b" opacity="0.8">TORONTO&#160;&#160;&#183;&#160;&#160;VANCOUVER</text>
+</svg>

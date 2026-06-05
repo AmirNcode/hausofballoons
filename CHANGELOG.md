@@ -47,14 +47,19 @@
 - **D4 — Footer doubles as nav.** The primary nav lives only in the hero and
   disappears once you scroll, so the footer carries quick links + back-to-top.
   A full sticky header is deferred.
-- **D5 — SEO is a dedicated next pass.** Highest-priority follow-up (the owner wants
-  strong Google + LLM discoverability). Will add: keyword title/meta, Open Graph +
-  share image, LocalBusiness structured data, sitemap.xml, robots.txt (incl. AI
-  crawlers), canonical, favicon.
+- **D5 — SEO is a dedicated pass.** Highest-priority work (the owner wants strong
+  Google + LLM discoverability). **Done 2026-06-04** — keyword title/meta, Open Graph
+  + share image, `LocalBusiness` JSON-LD, `sitemap.xml`, `robots.txt`, `llms.txt`,
+  favicons. See `docs/superpowers/specs/2026-06-04-seo-pass.md`.
+- **D6 — Allow AI crawlers (don't block).** Visibility is the goal and there's no
+  proprietary content, so `robots.txt` + `llms.txt` welcome both AI training bots and
+  search/citation bots (GPTBot, ClaudeBot, PerplexityBot, Google-Extended, etc.).
 
 ## Known issues / backlog (not yet addressed)
 
-- SEO foundation missing (see D5).
+- SEO foundation: **done** (2026-06-04). Remaining: Core Web Vitals / performance
+  (332 KB logo, lazy-load `embed.js`) and post-deploy steps (submit the sitemap in
+  Google Search Console; swap the placeholder OG image for a real photo).
 - "How it works" section is functional but plain — owner wants it spruced up.
 - Instagram section now shows the first real reel via the **official Instagram
   embed**. More reels are coming over the next couple of weeks — add each as another
@@ -104,3 +109,15 @@
   "See more on Instagram" CTA (white-outline `.btn--on-red` variant), and loaded
   `embed.js` once before `</body>`. `assets/demo_ig_video.mp4` is now unused.
   Verified the embed renders the live reel on desktop + mobile.
+- **SEO & discoverability pass** (spec: `docs/superpowers/specs/2026-06-04-seo-pass.md`):
+  - `index.html` `<head>`: keyword/location title + meta description, canonical,
+    `robots` (`max-image-preview:large`), `theme-color`, full Open Graph + Twitter
+    cards, favicons, and **JSON-LD** (`WebSite` + `LocalBusiness` with `areaServed`
+    for GTA + Greater Vancouver and an `OfferCatalog` of the 4 packages). Set
+    `lang="en-CA"` and a keyword-rich screen-reader `<h1>`.
+  - New `robots.txt` (welcomes AI crawlers + sitemap), `sitemap.xml`, and `llms.txt`.
+  - Generated `assets/og-image.png` (1200×630, + `.svg` source) and
+    `favicon.svg` / `favicon-32.png` / `apple-touch-icon.png` from the balloon SVG
+    via `qlmanage` + `sips`.
+  - Added favicons + `theme-color` to the thank-you page.
+  - Validated the JSON-LD parses and all new files serve with correct content-types.
