@@ -1,0 +1,86 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title></title>
+    <style>
+      html,
+      body {
+        width: 100%;
+        margin: 0;
+      }
+
+      body {
+        min-height: 300vh;
+        background: #ffffff;
+      }
+
+      .circle {
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        width: 520px;
+        height: 520px;
+        border-radius: 50%;
+        background: #111111;
+        transform: translate(-50%, -50%) scale(0.18);
+        transform-origin: center;
+        will-change: transform;
+      }
+
+      .center-arrow {
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        width: 64px;
+        height: 64px;
+        transform: translate(-50%, -50%);
+        pointer-events: none;
+      }
+
+      .center-arrow::before {
+        position: absolute;
+        top: 11px;
+        left: 50%;
+        width: 18px;
+        height: 34px;
+        background: #ffffff;
+        transform: translateX(-50%);
+        content: "";
+      }
+
+      .center-arrow::after {
+        position: absolute;
+        bottom: 9px;
+        left: 50%;
+        width: 30px;
+        height: 30px;
+        border-right: 18px solid #ffffff;
+        border-bottom: 18px solid #ffffff;
+        transform: translateX(-50%) rotate(45deg);
+        content: "";
+      }
+    </style>
+  </head>
+  <body>
+    <div class="circle"></div>
+    <div class="center-arrow"></div>
+    <script>
+      const circle = document.querySelector(".circle");
+
+      function updateCircle() {
+        const maxScroll = document.documentElement.scrollHeight - window.innerHeight;
+        const progress = maxScroll > 0 ? window.scrollY / maxScroll : 0;
+        const eased = 1 - Math.pow(1 - progress, 4);
+        const scale = 0.18 + eased * 4.8;
+
+        circle.style.transform = `translate(-50%, -50%) scale(${scale})`;
+      }
+
+      updateCircle();
+      window.addEventListener("scroll", updateCircle, { passive: true });
+      window.addEventListener("resize", updateCircle);
+    </script>
+  </body>
+</html>
