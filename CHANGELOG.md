@@ -56,13 +56,16 @@
 
 - SEO foundation missing (see D5).
 - "How it works" section is functional but plain — owner wants it spruced up.
-- Instagram reels are a hard-coded placeholder video (×4); to be replaced with real
-  reels once available.
+- Instagram section now shows the first real reel via the **official Instagram
+  embed**. More reels are coming over the next couple of weeks — add each as another
+  `<blockquote class="instagram-media" …>` inside the `.reel-embeds` container (the
+  layout already centers/wraps multiple embeds).
 - Fonts: `styles.css` references "Glacial Indifference" but it's never loaded, so
   non-Apple visitors get a fallback system font. Decide whether to self-host it.
 - Performance / cleanup: `logo_text.svg` is ~332 KB; duplicate SVGs and a 7.4 MB
-  placeholder video exist at both the repo root and in `assets/`; unused `demo/`
-  folder. Consolidate later.
+  placeholder video (`demo_ig_video.mp4`, now **unused** after the embed swap) exist
+  at both the repo root and in `assets/`; unused `demo/` folder. Safe to delete in a
+  cleanup pass.
 
 ---
 
@@ -94,3 +97,10 @@
     existing brand tokens. `main.js` unchanged (form is native Netlify POST).
   - Verified rendering on desktop + mobile via local preview. The Netlify form
     submission/redirect itself can only be fully verified after deploy.
+- **Replaced the Instagram placeholder videos** with the first real reel
+  (`instagram.com/reel/DZJktStBcoI/`) using the official Instagram embed
+  (blockquote + `embed.js`), per owner's choice. Swapped the 4-up `<video>` grid
+  for a centered `.reel-embeds` container that wraps multiple embeds, added a
+  "See more on Instagram" CTA (white-outline `.btn--on-red` variant), and loaded
+  `embed.js` once before `</body>`. `assets/demo_ig_video.mp4` is now unused.
+  Verified the embed renders the live reel on desktop + mobile.

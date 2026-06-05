@@ -198,6 +198,23 @@ a {
   object-fit: cover;
 }
 
+.reel-embeds {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: clamp(16px, 2.5vw, 28px);
+}
+
+.reel-embeds .instagram-media {
+  flex: 0 1 540px;
+  max-width: 540px;
+}
+
+.instagram__cta {
+  margin: clamp(28px, 5vw, 48px) 0 0;
+  text-align: center;
+}
+
 .blank-section {
   position: relative;
   z-index: 40;
@@ -443,6 +460,20 @@ a {
 .btn--ghost {
   color: var(--brand-red);
   background: transparent;
+}
+
+/* Ghost button on the red Instagram band */
+.btn--on-red {
+  color: var(--white);
+  background: transparent;
+  border-color: rgba(255, 255, 255, 0.7);
+}
+
+.btn--on-red:hover,
+.btn--on-red:focus-visible {
+  color: var(--brand-red);
+  background: var(--white);
+  border-color: var(--white);
 }
 
 .btn:hover,
