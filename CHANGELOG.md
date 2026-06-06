@@ -78,10 +78,10 @@
 ### 2026-06-05
 
 - **Mobile fixes + polish (round 2):**
-  - **Section headers** ("As seen on Instagram", "Packages", "How it works") now match
-    the logo's letter (cap) height across sizes — `clamp(3rem, 7.2vw, 6.5rem)` on
-    desktop, `clamp(2.8rem, 15.5vw, 4.4rem)` on mobile (verified: header cap ≈ logo
-    line cap at 390px and 1280px).
+  - **Section headers** ("As seen on Instagram", "Packages", "How it works") sized
+    relative to the logo's letter (cap) height, then dialed down 20% per request —
+    `clamp(2.4rem, 5.75vw, 5.2rem)` on desktop, `clamp(2.25rem, 12.4vw, 3.5rem)` on
+    mobile.
   - **iOS viewport:** `overflow-x: clip` on `html`/`body` removes the horizontal scroll
     and auto-zoom-out caused by the expanding `.scroll-circle`; switched hero/Instagram
     min-heights to `svh` so the iOS address bar no longer reflows the layout mid-scroll
