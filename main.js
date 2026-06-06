@@ -17,7 +17,12 @@ function updateCircle() {
   const instagramHeight = instagramSection.offsetHeight || viewportHeight;
   const animationEnd = Math.max(1, instagramSection.offsetTop);
   const progress = clamp(window.scrollY / animationEnd, 0, 1);
-  const eased = prefersReducedMotion.matches ? progress : 1 - Math.pow(1 - progress, 4);
+  // Gentler ease-out on small screens so the expansion feels smooth rather than
+  // popping open during fast touch scrolling (desktop keeps the snappier quartic).
+  const easePower = viewportWidth <= 780 ? 2 : 4;
+  const eased = prefersReducedMotion.matches
+    ? progress
+    : 1 - Math.pow(1 - progress, easePower);
   const coverScale = (Math.hypot(viewportWidth / 2, instagramHeight) / 260) * 1.08;
   const scale = 0.18 + eased * Math.max(coverScale - 0.18, 0);
 

@@ -77,6 +77,22 @@
 
 ### 2026-06-05
 
+- **Mobile fixes + polish (round 2):**
+  - **Section headers** ("As seen on Instagram", "Packages", "How it works") now match
+    the logo's letter (cap) height across sizes — `clamp(3rem, 7.2vw, 6.5rem)` on
+    desktop, `clamp(2.8rem, 15.5vw, 4.4rem)` on mobile (verified: header cap ≈ logo
+    line cap at 390px and 1280px).
+  - **iOS viewport:** `overflow-x: clip` on `html`/`body` removes the horizontal scroll
+    and auto-zoom-out caused by the expanding `.scroll-circle`; switched hero/Instagram
+    min-heights to `svh` so the iOS address bar no longer reflows the layout mid-scroll
+    (smoother circle).
+  - **Circle animation:** gentler ease-out on ≤780px (quadratic vs the desktop quartic)
+    so it expands smoothly instead of popping during fast touch scrolling.
+  - **Form fields:** normalized inputs (`-webkit-appearance: none`, `min-width: 0`,
+    shared `min-height: 48px`) so the iOS `type="date"` field is the same size as every
+    other field (all 10 fields measured equal width).
+  - **Packages:** Luxury & Corporate now show a **"Get a quote →"** link to the form
+    (`#get-in-touch`) instead of a starting price.
 - **"How it works" section upgrade** (all the brainstormed options):
   - Restyled the steps into **cards** on a tinted section (`#f9f1f1`), which breaks the
     all-white run across Packages / How it works / Get in touch.
