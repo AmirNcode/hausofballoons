@@ -75,7 +75,23 @@
 
 ## Changelog
 
-### 2026-06-05
+### 2026-06-09
+
+- **Netlify Forms not detected (fix).** Symptoms: the `quote` form never appeared
+  under Netlify → Forms, and submitting it hit Netlify's 404 instead of `/thank-you`.
+  Both are the same root cause — **the form wasn't detected at deploy time**, so there
+  was no handler for the POST. The markup was already correct (`data-netlify="true"`,
+  unique `name` on the form + every input, hidden `form-name`, honeypot), so this is
+  deploy-side: Netlify only scans for forms on a deploy that runs *after* form
+  detection is enabled, and only if the site auto-deploys from this repo.
+  - Added `netlify.toml` with an explicit `publish = "."` (removes publish-directory
+    ambiguity) and a `/thank-you` → `/thank-you/` redirect so the success page always
+    resolves. Pushing this triggers a fresh deploy → fresh form scan.
+  - **Owner action required:** confirm the Netlify site is connected to
+    `github.com/AmirNcode/hausofballoons` for continuous deploys (Site configuration →
+    Build & deploy). After the next deploy, the deploy log should report a detected
+    form and `quote` should appear under Site → Forms; set up the email notification to
+    `hausofballoons.ca@gmail.com` there.
 
 - **Mobile fixes + polish (round 2):**
   - **Section headers** ("As seen on Instagram", "Packages", "How it works") sized
