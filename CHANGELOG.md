@@ -75,6 +75,35 @@
 
 ## Changelog
 
+### 2026-06-10
+
+- **Design revamp — "warm celebration studio"** (built with the frontend-design skill).
+  Feedback was that the site felt boring for a fun, celebratory service, so the whole
+  look was warmed up and made more joyful while staying professional. **Not committed —
+  left in the working tree for local review per request.**
+  - **Palette:** stark white → warm **cream** paper (`--cream`); kept brand **burgundy**
+    as the anchor; added a **confetti accent set** — coral, marigold, blush-pink, mint,
+    lilac (`--coral/--marigold/--pink/--mint/--lilac`) used as pops (eyebrows, card cap
+    bars, step numbers, balloons, hover/focus states).
+  - **Type:** Georgia → **Fraunces** (warm characterful display serif) for headings +
+    **Hanken Grotesk** for body, loaded via Google Fonts. The never-loaded "Glacial
+    Indifference" reference is gone.
+  - **Decoration (restrained):** floating balloon SVGs, scattered confetti dots, and
+    soft blurred colour blobs in the hero, contact, footer, and thank-you page. All
+    `aria-hidden`, behind content, and reduced-motion safe.
+  - **Components:** pill nav + pill buttons; package cards now have per-tier accent
+    colours, a colour cap bar, a little balloon, and a hover-lift; how-it-works numbers
+    cycle accent colours; the quote form is a white card with cream fields; section
+    **eyebrows** added throughout; footer warmed with an italic tagline + balloons.
+  - **Hero:** added a visible Fraunces tagline ("…turn moments into *magic*"), a "Scroll"
+    cue, and a staggered entrance animation on load; tightened the square logo's
+    transparent whitespace so it reads as one composition.
+  - **Circle:** kept the expanding-circle scroll animation; gave it a subtle red radial
+    gradient.
+  - Generalized the scroll-reveal to any `[data-reveal-group]` (package cards + process
+    steps now stagger in). Verified all sections on desktop + mobile; no horizontal
+    overflow.
+
 ### 2026-06-09
 
 - **Netlify Forms not detected (fix).** Symptoms: the `quote` form never appeared

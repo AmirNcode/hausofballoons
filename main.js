@@ -74,23 +74,21 @@ function setupInstagramEmbed() {
   observer.observe(instagramSection);
 }
 
-// Reveal the "How it works" steps as they scroll into view (reduced-motion safe).
+// Staggered reveal: any [data-reveal-group] container has its direct children
+// fade/slide in as they scroll into view (reduced-motion safe).
 function setupReveal() {
-  const list = document.querySelector(".process-list");
-  if (!list) return;
+  if (prefersReducedMotion.matches || !("IntersectionObserver" in window)) return;
 
-  const steps = Array.from(list.querySelectorAll(".process-step"));
-  if (!steps.length || prefersReducedMotion.matches || !("IntersectionObserver" in window)) {
-    return;
-  }
+  const groups = document.querySelectorAll("[data-reveal-group]");
+  if (!groups.length) return;
 
-  list.classList.add("js-anim");
+  root.classList.add("reveal-ready");
 
   const observer = new IntersectionObserver(
     (entries) => {
       entries.forEach((entry) => {
         if (entry.isIntersecting) {
-          entry.target.classList.add("is-visible");
+          entry.target.classList.add("is-revealed");
           observer.unobserve(entry.target);
         }
       });
@@ -98,9 +96,12 @@ function setupReveal() {
     { rootMargin: "0px 0px -8% 0px", threshold: 0.12 }
   );
 
-  steps.forEach((step, index) => {
-    step.style.transitionDelay = index * 90 + "ms";
-    observer.observe(step);
+  groups.forEach((group) => {
+    Array.from(group.children).forEach((child, index) => {
+      child.classList.add("reveal-item");
+      child.style.transitionDelay = index * 80 + "ms";
+      observer.observe(child);
+    });
   });
 }
 
