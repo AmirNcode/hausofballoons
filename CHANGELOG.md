@@ -10,15 +10,18 @@
 
 - **What:** One-page marketing site for **Haus of Balloons**, a balloon-decor
   business (garlands, backdrops, full event installations).
-- **Stack:** Plain **static HTML + CSS + JS**. No framework, no build step.
+- **Stack:** Plain **static HTML + CSS + JS**. No framework. Netlify runs a small
+  Node build script to generate the gallery image manifest from `assets/pictures/`.
   (It was *described* as Astro, but the actual code Codex generated is static —
   see decision D1.)
 - **Hosting (planned):** **Netlify**, custom domain **hausofballoons.ca**.
 - **Key files:**
-  - `index.html` — the whole site (hero, Instagram reels, packages, how-it-works, get-in-touch)
+  - `index.html` — the whole site (hero, Instagram reels, gallery, about, how-it-works, get-in-touch)
   - `styles.css` — all styles
-  - `main.js` — scroll-circle hero animation + lazy-loads the Instagram embed
-  - `assets/` — optimized logo (`logo_text.webp`, ~28 KB), `balloon.svg`, `og-image.png`
+  - `main.js` — scroll-circle hero animation, gallery rendering, carousel controls, and lazy-loaded Instagram embeds
+  - `gallery-images.js` — generated gallery manifest
+  - `scripts/generate-gallery-images.js` — scans `assets/pictures/` for supported image files
+  - `assets/` — optimized logo (`logo_text.webp`, ~28 KB), gallery pictures, `balloon.svg`, `og-image.png`
   - `docs/superpowers/specs/` — design specs; `docs/reference/` — design PDF
 - **Brand:** deep red `#8d0b0b` on white. Headings in Georgia serif; the logo is a
   custom display wordmark (`logo_text.webp`, with the balloon as the "O").
@@ -38,8 +41,9 @@
 ## Key decisions (with rationale)
 
 - **D1 — Keep it static (not Astro).** The site is already plain HTML/CSS/JS and is
-  a single page. Static is lighter, faster, has zero build step, and works perfectly
-  with Netlify + Netlify Forms. Revisit Astro only if it grows (extra pages, blog).
+  a single page. Static is lighter, faster, and works well with Netlify + Netlify
+  Forms. The only build step is a small manifest generator for gallery images.
+  Revisit Astro only if it grows (extra pages, blog).
 - **D2 — Netlify Forms for contact.** Native HTML form (`data-netlify="true"`),
   invisible honeypot for spam, custom `/thank-you` success page. No backend to run.
 - **D3 — Quote/inquiry form (not direct booking).** Visitor describes their event;
@@ -63,6 +67,8 @@
   cards, expectations line, 4th "Enjoy & tag us" step, end CTA, and scroll-reveal.
 - Instagram section uses the **official Instagram embed** and now reads the displayed
   reel/post URLs from `instagram-posts.js`.
+- Gallery reads generated image data from `gallery-images.js`, which is built from
+  supported image files in `assets/pictures/`.
 - Fonts: `styles.css` references "Glacial Indifference" but it's never loaded, so
   non-Apple visitors get a fallback system font. Decide whether to self-host it.
 - Performance / cleanup: **done** (2026-06-05) — logo → 28 KB WebP, removed ~15.5 MB
@@ -72,6 +78,14 @@
 ---
 
 ## Changelog
+
+### 2026-07-02
+
+- **Gallery image type fix:** The gallery broke after PNGs were replaced with JPEGs
+  because `index.html` still hardcoded `.png` paths. Added
+  `scripts/generate-gallery-images.js`, `gallery-images.js`, and a Netlify build
+  command so the gallery is generated from supported image files in `assets/pictures/`
+  instead of hardcoded file extensions.
 
 ### 2026-06-10
 

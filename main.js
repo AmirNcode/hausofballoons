@@ -123,6 +123,8 @@ function setupGalleryCarousel() {
 
   if (!track || !prev || !next) return;
 
+  renderGalleryImages(track);
+
   const getScrollStep = () => {
     const firstCard = track.querySelector(".gallery-card");
     const trackStyles = window.getComputedStyle(track);
@@ -165,6 +167,38 @@ function setupGalleryCarousel() {
   track.addEventListener("scroll", () => window.requestAnimationFrame(updateControls), { passive: true });
   window.addEventListener("resize", updateControls);
   updateControls();
+}
+
+function renderGalleryImages(track) {
+  const images = Array.isArray(window.HOB_GALLERY_IMAGES)
+    ? window.HOB_GALLERY_IMAGES
+    : [];
+
+  track.replaceChildren();
+
+  images.forEach((image) => {
+    if (!image || !image.src) return;
+
+    const caption = image.caption || image.file || "Gallery image";
+    const figure = document.createElement("figure");
+    figure.className = "gallery-card";
+
+    const frame = document.createElement("div");
+    frame.className = "gallery-card__frame";
+
+    const img = document.createElement("img");
+    img.src = image.src;
+    img.alt = caption;
+    img.loading = "lazy";
+    img.decoding = "async";
+
+    const figcaption = document.createElement("figcaption");
+    figcaption.textContent = caption;
+
+    frame.append(img);
+    figure.append(frame, figcaption);
+    track.append(figure);
+  });
 }
 
 function setupInstagramCarousel() {

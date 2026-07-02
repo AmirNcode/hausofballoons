@@ -1,11 +1,10 @@
 # Netlify configuration for the static Haus of Balloons site.
-# There is no build step — the repository root is published as-is, which is
-# where index.html (containing the Netlify "quote" form) and the thank-you/
-# directory live. Publishing the root is also what lets Netlify's form
-# detection scan index.html on each deploy.
+# The build step generates gallery-images.js from assets/pictures/ before the
+# repository root is published as-is. Publishing the root is what lets Netlify's
+# form detection scan index.html on each deploy.
 [build]
   publish = "."
-  command = ""
+  command = "node scripts/generate-gallery-images.js"
 
 # Pretty-print the thank-you success page reliably at /thank-you (the form's
 # action target) regardless of the "Pretty URLs" asset setting.
