@@ -723,6 +723,17 @@ body.gallery-lightbox-open {
   box-shadow: 0 18px 42px rgba(141, 11, 11, 0.12);
 }
 
+@media (max-width: 899px) {
+  .gallery-card__button {
+    cursor: default;
+  }
+
+  .gallery-card__button:hover img,
+  .gallery-card__button:focus-visible img {
+    transform: none;
+  }
+}
+
 /* ------------------------------------------------------------------ */
 /* About                                                              */
 /* ------------------------------------------------------------------ */

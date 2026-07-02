@@ -86,9 +86,10 @@
   `scripts/generate-gallery-images.js`, `gallery-images.js`, and a Netlify build
   command so the gallery is generated from supported image files in `assets/pictures/`
   instead of hardcoded file extensions.
-- **Gallery lightbox:** Gallery images now open in a larger overlay with a white
-  page fade, close button, and bottom previous/next controls for browsing expanded
-  images.
+- **Desktop gallery lightbox:** On desktop, gallery images now open in a larger
+  overlay with a white page fade, close button, and bottom previous/next controls
+  for browsing expanded images. Mobile keeps the regular gallery cards without an
+  expanded-image overlay.
 
 ### 2026-06-10
 

@@ -1,5 +1,6 @@
 const root = document.documentElement;
 const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
+const galleryDesktopQuery = window.matchMedia("(min-width: 900px)");
 const circle = document.querySelector(".scroll-circle");
 const instagramSection = document.querySelector(".instagram");
 
@@ -123,8 +124,8 @@ function setupGalleryCarousel() {
 
   if (!track || !prev || !next) return;
 
-  renderGalleryImages(track);
-  setupGalleryLightbox(track);
+  renderGalleryImages(track, galleryDesktopQuery.matches);
+  setupGalleryLightbox(track, galleryDesktopQuery);
 
   const getScrollStep = () => {
     const firstCard = track.querySelector(".gallery-card");
@@ -167,6 +168,10 @@ function setupGalleryCarousel() {
   next.addEventListener("click", () => scrollByPage(1));
   track.addEventListener("scroll", () => window.requestAnimationFrame(updateControls), { passive: true });
   window.addEventListener("resize", updateControls);
+  galleryDesktopQuery.addEventListener("change", () => {
+    renderGalleryImages(track, galleryDesktopQuery.matches);
+    window.requestAnimationFrame(updateControls);
+  });
   updateControls();
 }
 
@@ -176,7 +181,7 @@ function getGalleryImages() {
     : [];
 }
 
-function renderGalleryImages(track) {
+function renderGalleryImages(track, enableLightbox = false) {
   const images = getGalleryImages();
 
   track.replaceChildren();
@@ -185,12 +190,6 @@ function renderGalleryImages(track) {
     const caption = image.caption || image.file || "Gallery image";
     const figure = document.createElement("figure");
     figure.className = "gallery-card";
-
-    const button = document.createElement("button");
-    button.className = "gallery-card__button";
-    button.type = "button";
-    button.setAttribute("data-gallery-open", String(index));
-    button.setAttribute("aria-label", "View " + caption + " larger");
 
     const frame = document.createElement("span");
     frame.className = "gallery-card__frame";
@@ -205,13 +204,24 @@ function renderGalleryImages(track) {
     figcaption.textContent = caption;
 
     frame.append(img);
-    button.append(frame);
-    figure.append(button, figcaption);
+
+    if (enableLightbox) {
+      const button = document.createElement("button");
+      button.className = "gallery-card__button";
+      button.type = "button";
+      button.setAttribute("data-gallery-open", String(index));
+      button.setAttribute("aria-label", "View " + caption + " larger");
+      button.append(frame);
+      figure.append(button, figcaption);
+    } else {
+      figure.append(frame, figcaption);
+    }
+
     track.append(figure);
   });
 }
 
-function setupGalleryLightbox(track) {
+function setupGalleryLightbox(track, galleryDesktopQuery) {
   const lightbox = document.querySelector("[data-gallery-lightbox]");
   if (!lightbox) return;
 
@@ -246,6 +256,8 @@ function setupGalleryLightbox(track) {
   };
 
   const openLightbox = (index) => {
+    if (!galleryDesktopQuery.matches) return;
+
     previousFocus = document.activeElement;
     showLightboxImage(index);
     lightbox.classList.add("is-open");
@@ -270,6 +282,8 @@ function setupGalleryLightbox(track) {
   };
 
   track.addEventListener("click", (event) => {
+    if (!galleryDesktopQuery.matches) return;
+
     const openButton = event.target.closest("[data-gallery-open]");
     if (!openButton || !track.contains(openButton)) return;
 
@@ -298,6 +312,12 @@ function setupGalleryLightbox(track) {
     } else if (event.key === "ArrowRight") {
       event.preventDefault();
       moveLightbox(1);
+    }
+  });
+
+  galleryDesktopQuery.addEventListener("change", (event) => {
+    if (!event.matches && lightbox.classList.contains("is-open")) {
+      closeLightbox();
     }
   });
 }
