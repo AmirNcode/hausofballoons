@@ -68,7 +68,10 @@
           "url": "https://hausofballoons.ca/",
           "image": "https://hausofballoons.ca/assets/og-image.png",
           "logo": "https://hausofballoons.ca/assets/logo_text.webp",
-          "email": "hausofballoons.ca@gmail.com",
+          "email": [
+            "toronto@hausofballoons.ca",
+            "vancouver@hausofballoons.ca"
+          ],
           "priceRange": "$$",
           "currenciesAccepted": "CAD",
           "paymentAccepted": "Cash, Credit Card, e-Transfer",
@@ -80,17 +83,7 @@
             { "@type": "AdministrativeArea", "name": "Greater Vancouver" },
             { "@type": "City", "name": "Vancouver" }
           ],
-          "knowsAbout": ["Balloon garlands", "Balloon backdrops", "Balloon arches", "Event decor", "Corporate event decor"],
-          "hasOfferCatalog": {
-            "@type": "OfferCatalog",
-            "name": "Balloon decor packages",
-            "itemListElement": [
-              { "@type": "Offer", "name": "Basic", "description": "Compact balloon garland or mini focal install; two-to-three colour palette; delivery included.", "priceCurrency": "CAD", "priceSpecification": { "@type": "PriceSpecification", "minPrice": 299, "priceCurrency": "CAD" } },
-              { "@type": "Offer", "name": "Premium", "description": "Larger organic garland with fuller styling; backdrop or plinth option; delivery and installation included.", "priceCurrency": "CAD", "priceSpecification": { "@type": "PriceSpecification", "minPrice": 650, "priceCurrency": "CAD" } },
-              { "@type": "Offer", "name": "Luxury", "description": "Statement arch, wall, or layered backdrop moment; premium finishes, chrome accents, or florals.", "priceCurrency": "CAD", "priceSpecification": { "@type": "PriceSpecification", "minPrice": 1100, "priceCurrency": "CAD" } },
-              { "@type": "Offer", "name": "Corporate Event", "description": "Branded installation for launches, galas, and activations; entrance, stage, or photo-op moments.", "priceCurrency": "CAD", "priceSpecification": { "@type": "PriceSpecification", "minPrice": 1500, "priceCurrency": "CAD" } }
-            ]
-          }
+          "knowsAbout": ["Balloon garlands", "Balloon backdrops", "Balloon arches", "Balloon bouquets", "Balloon sculptures", "Event decor", "Corporate event decor"]
         }
       ]
     }
@@ -140,7 +133,8 @@
         <p class="hero__tagline">Balloon garlands, backdrops &amp; installs that turn moments into <em>magic</em>.</p>
 
         <nav class="site-nav" aria-label="Primary">
-          <a href="#packages">Packages</a>
+          <a href="#gallery">Gallery</a>
+          <a href="#about">About Us</a>
           <a href="#how-it-works">How it works</a>
           <a href="#get-in-touch">Get in touch</a>
         </nav>
@@ -153,14 +147,23 @@
       <div class="section-shell">
         <p class="section-eyebrow">Fresh from our feed</p>
         <h2 id="instagram-title">AS SEEN ON INSTAGRAM</h2>
-        <div class="reel-embeds" aria-label="Instagram reels">
-          <blockquote class="instagram-media" data-instgrm-captioned
-            data-instgrm-permalink="https://www.instagram.com/reel/DZJktStBcoI/?utm_source=ig_embed&amp;utm_campaign=loading"
-            data-instgrm-version="14"
-            style="background:#fff; border:0; border-radius:3px; box-shadow:0 0 1px 0 rgba(0,0,0,0.5),0 1px 10px 0 rgba(0,0,0,0.15); margin:1px; max-width:540px; min-width:326px; padding:0; width:calc(100% - 2px);">
-            <a href="https://www.instagram.com/reel/DZJktStBcoI/?utm_source=ig_embed&amp;utm_campaign=loading"
-              target="_blank" rel="noopener">View this reel on Instagram</a>
-          </blockquote>
+        <div class="instagram-carousel" data-instagram-carousel>
+          <button class="gallery-arrow instagram-arrow instagram-arrow--prev" type="button"
+            aria-label="Show previous Instagram reels" data-instagram-prev>
+            <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+              <path d="M15 18 9 12l6-6" />
+            </svg>
+          </button>
+
+          <div class="instagram-track" data-instagram-track aria-label="Instagram reels"></div>
+
+          <button class="gallery-arrow instagram-arrow instagram-arrow--next" type="button"
+            aria-label="Show next Instagram reels" data-instagram-next>
+            <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+              <path d="m9 18 6-6-6-6" />
+            </svg>
+          </button>
+          <span class="sr-only" aria-live="polite" data-instagram-status></span>
         </div>
         <p class="instagram__cta">
           <a class="btn btn--ghost btn--on-red" href="https://www.instagram.com/hausofballoons.ca/" target="_blank"
@@ -169,83 +172,131 @@
       </div>
     </section>
 
-    <section class="blank-section" id="packages" aria-labelledby="packages-title">
+    <section class="blank-section gallery" id="gallery" aria-labelledby="gallery-title">
       <div class="section-shell">
-        <p class="section-eyebrow">Find your fit</p>
-        <h2 id="packages-title">Packages</h2>
-        <div class="package-grid" data-reveal-group aria-label="Balloon decor packages">
-          <article class="package-card" style="--accent:var(--coral);">
-            <svg class="package-card__balloon" style="--c:var(--coral);" viewBox="0 0 44 60" aria-hidden="true">
-              <ellipse cx="22" cy="22" rx="18" ry="21" fill="var(--c)" />
-              <path d="M22 42l-3.5 6h7z" fill="var(--c)" />
-              <path d="M22 48c0 5 4 5 4 10" fill="none" stroke="var(--c)" stroke-width="1.4" stroke-linecap="round" />
-              <ellipse cx="15" cy="15" rx="4" ry="6" fill="#fff" opacity=".45" transform="rotate(-20 15 15)" />
-            </svg>
-            <p class="package-card__eyebrow">Small gatherings</p>
-            <h3>Basic</h3>
-            <p class="package-card__price">Starting at $299</p>
-            <ul>
-              <li>Compact balloon garland or mini focal install</li>
-              <li>Two to three color palette</li>
-              <li>Delivery included</li>
-              <li>Best for birthdays, showers, and home setups</li>
-            </ul>
-          </article>
+        <p class="section-eyebrow">Our work</p>
+        <h2 id="gallery-title">Gallery</h2>
 
-          <article class="package-card package-card--featured" style="--accent:var(--marigold);">
-            <svg class="package-card__balloon" style="--c:var(--marigold);" viewBox="0 0 44 60" aria-hidden="true">
-              <ellipse cx="22" cy="22" rx="18" ry="21" fill="var(--c)" />
-              <path d="M22 42l-3.5 6h7z" fill="var(--c)" />
-              <path d="M22 48c0 5 4 5 4 10" fill="none" stroke="var(--c)" stroke-width="1.4" stroke-linecap="round" />
-              <ellipse cx="15" cy="15" rx="4" ry="6" fill="#fff" opacity=".5" transform="rotate(-20 15 15)" />
+        <div class="gallery-carousel" data-gallery-carousel>
+          <button class="gallery-arrow gallery-arrow--prev" type="button" aria-label="Show previous gallery images"
+            data-gallery-prev>
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M15 18l-6-6 6-6" />
             </svg>
-            <p class="package-card__eyebrow">Most requested</p>
-            <h3>Premium</h3>
-            <p class="package-card__price">Starting at $650</p>
-            <ul>
-              <li>Larger organic garland with fuller styling</li>
-              <li>Backdrop or plinth option</li>
-              <li>Delivery and installation included</li>
-            </ul>
-          </article>
+          </button>
 
-          <article class="package-card" style="--accent:var(--lilac);">
-            <svg class="package-card__balloon" style="--c:var(--lilac);" viewBox="0 0 44 60" aria-hidden="true">
-              <ellipse cx="22" cy="22" rx="18" ry="21" fill="var(--c)" />
-              <path d="M22 42l-3.5 6h7z" fill="var(--c)" />
-              <path d="M22 48c0 5 4 5 4 10" fill="none" stroke="var(--c)" stroke-width="1.4" stroke-linecap="round" />
-              <ellipse cx="15" cy="15" rx="4" ry="6" fill="#fff" opacity=".45" transform="rotate(-20 15 15)" />
-            </svg>
-            <p class="package-card__eyebrow">Full setup</p>
-            <h3>Luxury</h3>
-            <a class="package-card__price package-card__quote" href="#get-in-touch">Get a quote &rarr;</a>
-            <ul>
-              <li>Statement arch, wall, or layered backdrop moment</li>
-              <li>Premium finishes, chrome accents, or florals</li>
-              <li>Best for weddings and milestone events</li>
-            </ul>
-          </article>
+          <div class="gallery-track" data-gallery-track aria-label="Gallery images">
+            <figure class="gallery-card">
+              <div class="gallery-card__frame">
+                <img src="assets/pictures/half%20arch%20with%20stars.png" alt="half arch with stars" loading="lazy"
+                  decoding="async">
+              </div>
+              <figcaption>half arch with stars</figcaption>
+            </figure>
+            <figure class="gallery-card">
+              <div class="gallery-card__frame">
+                <img src="assets/pictures/full%20arch.png" alt="full arch" loading="lazy" decoding="async">
+              </div>
+              <figcaption>full arch</figcaption>
+            </figure>
+            <figure class="gallery-card">
+              <div class="gallery-card__frame">
+                <img src="assets/pictures/half%20arch%20with%20dried%20flowers.png"
+                  alt="half arch with dried flowers" loading="lazy" decoding="async">
+              </div>
+              <figcaption>half arch with dried flowers</figcaption>
+            </figure>
+            <figure class="gallery-card">
+              <div class="gallery-card__frame">
+                <img src="assets/pictures/orange%20daisy.png" alt="orange daisy" loading="lazy" decoding="async">
+              </div>
+              <figcaption>orange daisy</figcaption>
+            </figure>
+            <figure class="gallery-card">
+              <div class="gallery-card__frame">
+                <img src="assets/pictures/balloon%20cluster.png" alt="balloon cluster" loading="lazy" decoding="async">
+              </div>
+              <figcaption>balloon cluster</figcaption>
+            </figure>
+            <figure class="gallery-card">
+              <div class="gallery-card__frame">
+                <img src="assets/pictures/half%20arch%20with%20floweres.png" alt="half arch with floweres"
+                  loading="lazy" decoding="async">
+              </div>
+              <figcaption>half arch with floweres</figcaption>
+            </figure>
+            <figure class="gallery-card">
+              <div class="gallery-card__frame">
+                <img src="assets/pictures/pink%20daisy.png" alt="pink daisy" loading="lazy" decoding="async">
+              </div>
+              <figcaption>pink daisy</figcaption>
+            </figure>
+            <figure class="gallery-card">
+              <div class="gallery-card__frame">
+                <img src="assets/pictures/half%20arch%20with%20flowers.png" alt="half arch with flowers"
+                  loading="lazy" decoding="async">
+              </div>
+              <figcaption>half arch with flowers</figcaption>
+            </figure>
+            <figure class="gallery-card">
+              <div class="gallery-card__frame">
+                <img src="assets/pictures/full%20arch%20with%20custom%20balloons.png"
+                  alt="full arch with custom balloons" loading="lazy" decoding="async">
+              </div>
+              <figcaption>full arch with custom balloons</figcaption>
+            </figure>
+            <figure class="gallery-card">
+              <div class="gallery-card__frame">
+                <img src="assets/pictures/multicolour%20daisies.png" alt="multicolour daisies" loading="lazy"
+                  decoding="async">
+              </div>
+              <figcaption>multicolour daisies</figcaption>
+            </figure>
+            <figure class="gallery-card">
+              <div class="gallery-card__frame">
+                <img src="assets/pictures/full%20cherry%20arch.png" alt="full cherry arch" loading="lazy"
+                  decoding="async">
+              </div>
+              <figcaption>full cherry arch</figcaption>
+            </figure>
+            <figure class="gallery-card">
+              <div class="gallery-card__frame">
+                <img src="assets/pictures/single%20flower.png" alt="single flower" loading="lazy" decoding="async">
+              </div>
+              <figcaption>single flower</figcaption>
+            </figure>
+            <figure class="gallery-card">
+              <div class="gallery-card__frame">
+                <img src="assets/pictures/turquois%20daisy.png" alt="turquois daisy" loading="lazy"
+                  decoding="async">
+              </div>
+              <figcaption>turquois daisy</figcaption>
+            </figure>
+          </div>
 
-          <article class="package-card" style="--accent:var(--mint);">
-            <svg class="package-card__balloon" style="--c:var(--mint);" viewBox="0 0 44 60" aria-hidden="true">
-              <ellipse cx="22" cy="22" rx="18" ry="21" fill="var(--c)" />
-              <path d="M22 42l-3.5 6h7z" fill="var(--c)" />
-              <path d="M22 48c0 5 4 5 4 10" fill="none" stroke="var(--c)" stroke-width="1.4" stroke-linecap="round" />
-              <ellipse cx="15" cy="15" rx="4" ry="6" fill="#fff" opacity=".45" transform="rotate(-20 15 15)" />
+          <button class="gallery-arrow gallery-arrow--next" type="button" aria-label="Show next gallery images"
+            data-gallery-next>
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M9 6l6 6-6 6" />
             </svg>
-            <p class="package-card__eyebrow">Brand moments</p>
-            <h3>Corporate Event</h3>
-            <a class="package-card__price package-card__quote" href="#get-in-touch">Get a quote &rarr;</a>
-            <ul>
-              <li>Branded colors for launches, galas, and activations</li>
-              <li>Entrance, stage, or photo-op installation</li>
-              <li>Venue coordination and teardown available</li>
-            </ul>
-          </article>
+          </button>
+
+          <span class="sr-only" aria-live="polite" data-gallery-status></span>
         </div>
-        <p class="section-note">
-          Final pricing depends on scale, venue access, delivery area, teardown, and specialty finishes.
-        </p>
+      </div>
+    </section>
+
+    <section class="blank-section about" id="about" aria-labelledby="about-title">
+      <div class="section-shell">
+        <p class="section-eyebrow">Our story</p>
+        <h2 id="about-title">About Us</h2>
+        <div class="about__copy" data-reveal-group>
+          <p>We're a team of creative artists passionate about making every celebration unforgettable. Whether you're planning a birthday, wedding, baby shower, graduation, corporate event, or any special occasion, we're here to bring your vision to life.</p>
+          <p>From stunning balloon arches and custom number displays to balloon bouquets, backdrops, sculptures, and unique installations, we do it all. If it involves balloons and event d&eacute;cor, we can create it.</p>
+          <p>No two events are the same, which is why every design is customized to match your style, theme, and budget. Whether you know exactly what you want or need help bringing an idea to life, we'll work with you every step of the way.</p>
+          <p>The sky's the limit!</p>
+          <p>We're committed to creating beautiful, high-quality balloon d&eacute;cor that makes your event one to remember.</p>
+        </div>
       </div>
     </section>
 
@@ -259,8 +310,8 @@
         <ol class="process-list" data-reveal-group>
           <li class="process-step">
             <span class="process-step__num" aria-hidden="true">01</span>
-            <h3>Pick your package</h3>
-            <p>Choose the setup size that fits your event, or start with a custom request.</p>
+            <h3>Share your vision</h3>
+            <p>Tell us what you are celebrating and the balloon moment you want to create.</p>
           </li>
 
           <li class="process-step">
@@ -352,13 +403,13 @@
           </div>
 
           <div class="quote-form__field">
-            <label for="package">Package of interest</label>
-            <select id="package" name="package">
+            <label for="service">Service of interest</label>
+            <select id="service" name="service">
               <option value="" disabled selected>Select one&hellip;</option>
-              <option>Basic</option>
-              <option>Premium</option>
-              <option>Luxury</option>
-              <option>Corporate</option>
+              <option>Balloon arch or garland</option>
+              <option>Backdrop or number display</option>
+              <option>Balloon bouquet</option>
+              <option>Corporate or branded installation</option>
               <option>Not sure / custom</option>
             </select>
           </div>
@@ -389,8 +440,10 @@
           <div class="quote-form__actions quote-form__field--full">
             <button type="submit" class="btn btn--primary">Request my quote</button>
             <p class="quote-form__fallback">
-              Prefer email? Reach us at
-              <a href="mailto:hausofballoons.ca@gmail.com">hausofballoons.ca@gmail.com</a>.
+              Prefer email? Reach us in
+              <a href="mailto:toronto@hausofballoons.ca">Toronto</a>
+              or
+              <a href="mailto:vancouver@hausofballoons.ca">Vancouver</a>.
             </p>
           </div>
         </form>
@@ -430,7 +483,7 @@
       <nav class="site-footer__col" aria-label="Footer">
         <h3>Explore</h3>
         <ul>
-          <li><a href="#packages">Packages</a></li>
+          <li><a href="#about">About Us</a></li>
           <li><a href="#how-it-works">How it works</a></li>
           <li><a href="#get-in-touch">Get a quote</a></li>
         </ul>
@@ -454,6 +507,7 @@
     </div>
   </footer>
 
+  <script src="instagram-posts.js"></script>
   <script src="main.js"></script>
 </body>
 

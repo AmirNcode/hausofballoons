@@ -17,9 +17,10 @@ dependencies. Hosted on **Netlify** (contact form uses Netlify Forms).
 .
 ├── index.html              # The whole one-page site
 ├── styles.css              # All styles (brand tokens at the top)
-├── main.js                 # Hero scroll animation + lazy video playback
+├── main.js                 # Hero animation, Instagram embeds, and carousel controls
+├── instagram-posts.js      # Editable Instagram reel/post URLs
 ├── thank-you/index.html    # Form submission confirmation page (/thank-you)
-├── assets/                 # Logo, balloon/circle SVGs, placeholder reel video
+├── assets/                 # Logo, balloon/circle SVGs, and gallery pictures
 ├── CHANGELOG.md            # What changed and why — read this first
 └── docs/superpowers/specs/ # Design specs
 ```
@@ -36,12 +37,18 @@ python3 -m http.server 4321
 > **Note:** the contact form posts to Netlify, so form submission and the
 > redirect to `/thank-you` only work on a Netlify deploy, not locally.
 
+## Changing Instagram posts
+
+Edit `instagram-posts.js` and replace the URLs inside `window.HOB_INSTAGRAM_POSTS`.
+The page automatically renders those links in the Instagram carousel.
+
 ## Deployment (Netlify)
 
 1. Connect this repo to a Netlify site (build command: none; publish directory: root).
 2. Add the custom domain `hausofballoons.ca`.
 3. **Enable form notifications:** Site configuration → Forms → Form notifications →
-   Add notification → Email → `hausofballoons.ca@gmail.com`.
+   add email notifications for `toronto@hausofballoons.ca` and
+   `vancouver@hausofballoons.ca`.
 
 Form detection is on by default, so the `quote` form appears under **Site → Forms**
 after the first deploy. Submissions are stored in the dashboard and emailed.

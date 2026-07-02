@@ -12,7 +12,7 @@
 - **Name:** Haus of Balloons
 - **Tagline (new, placeholder, no confirmation needed):** *"Bespoke balloon garlands & installations for unforgettable events."*
 - **Locations / service area:** Based in **Toronto** and **Vancouver**; serving the **Greater Toronto Area (GTA)** and **Greater Vancouver**. One site covers both — no per-location routing logic yet.
-- **Email:** `hausofballoons.ca@gmail.com` (form notifications + displayed publicly)
+- **Emails:** `toronto@hausofballoons.ca`; `vancouver@hausofballoons.ca` (form notifications + displayed publicly)
 - **Phone:** none
 - **Instagram:** `@hausofballoons.ca` → `https://instagram.com/hausofballoons.ca`
 - **Other socials:** none yet
@@ -44,7 +44,7 @@ Stays a plain static site. No build step, no JS framework, no new dependencies.
 - Keep existing `<h2>Get in touch</h2>`.
 - Intro paragraph below it:
   > "Tell us about your event and we'll send a custom quote within 48 hours. Based in Toronto and Vancouver, we design balloon garlands, backdrops, and full installations across the GTA and Greater Vancouver."
-- Below the form, a fallback line: *"Prefer email? Reach us at hausofballoons.ca@gmail.com."* (mailto link)
+- Below the form, a fallback line with both Toronto and Vancouver email links.
 - Submit button label: **"Request my quote"**
 
 ### Fields
@@ -107,7 +107,7 @@ Placed after `</main>`. White background, brand-red text, thin red top divider (
 ## 6. Netlify deployment notes (for the owner, documented — not code)
 
 1. Netlify **form detection** is on by default; the `quote` form will appear under **Site → Forms** after the first deploy.
-2. To get submissions emailed: **Site configuration → Forms → Form notifications → Add notification → Email**, set to `hausofballoons.ca@gmail.com`.
+2. To get submissions emailed: **Site configuration → Forms → Form notifications → Add notification → Email**, add notifications for `toronto@hausofballoons.ca` and `vancouver@hausofballoons.ca`.
 3. Submissions are also stored in the Netlify dashboard as a backup.
 4. (Domain `hausofballoons.ca` connection is a separate deployment task, handled later.)
 

@@ -30,7 +30,7 @@
 - **Locations / service area:** Toronto + Vancouver; serving the Greater Toronto
   Area (GTA) and Greater Vancouver. One site for both (Vancouver handled by a
   partner). No per-location routing yet — deferred until volume justifies it.
-- **Email:** `hausofballoons.ca@gmail.com` (interim; pro email planned later)
+- **Emails:** `toronto@hausofballoons.ca`; `vancouver@hausofballoons.ca`
 - **Phone:** none yet
 - **Instagram:** `@hausofballoons.ca` — https://instagram.com/hausofballoons.ca
 - **Other socials:** none yet
@@ -61,10 +61,8 @@
   sitemap in Google Search Console; swap the placeholder OG image for a real photo).
 - "How it works": **done** (2026-06-05) — icons, ghost numerals, flow arrows, tinted
   cards, expectations line, 4th "Enjoy & tag us" step, end CTA, and scroll-reveal.
-- Instagram section now shows the first real reel via the **official Instagram
-  embed**. More reels are coming over the next couple of weeks — add each as another
-  `<blockquote class="instagram-media" …>` inside the `.reel-embeds` container (the
-  layout already centers/wraps multiple embeds).
+- Instagram section uses the **official Instagram embed** and now reads the displayed
+  reel/post URLs from `instagram-posts.js`.
 - Fonts: `styles.css` references "Glacial Indifference" but it's never loaded, so
   non-Apple visitors get a fallback system font. Decide whether to self-host it.
 - Performance / cleanup: **done** (2026-06-05) — logo → 28 KB WebP, removed ~15.5 MB
@@ -119,8 +117,8 @@
   - **Owner action required:** confirm the Netlify site is connected to
     `github.com/AmirNcode/hausofballoons` for continuous deploys (Site configuration →
     Build & deploy). After the next deploy, the deploy log should report a detected
-    form and `quote` should appear under Site → Forms; set up the email notification to
-    `hausofballoons.ca@gmail.com` there.
+    form and `quote` should appear under Site → Forms; set up email notifications for
+    `toronto@hausofballoons.ca` and `vancouver@hausofballoons.ca` there.
 
 - **Mobile fixes + polish (round 2):**
   - **Section headers** ("As seen on Instagram", "Packages", "How it works") sized

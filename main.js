@@ -49,9 +49,7 @@ function setupInstagramEmbed() {
     script.async = true;
     script.src = "https://www.instagram.com/embed.js";
     script.onload = () => {
-      if (window.instgrm && window.instgrm.Embeds) {
-        window.instgrm.Embeds.process();
-      }
+      processInstagramEmbeds();
     };
     document.body.appendChild(script);
   };
@@ -72,6 +70,15 @@ function setupInstagramEmbed() {
   );
 
   observer.observe(instagramSection);
+}
+
+let updateInstagramCarouselControls = () => {};
+
+function processInstagramEmbeds() {
+  if (window.instgrm && window.instgrm.Embeds) {
+    window.instgrm.Embeds.process();
+    window.setTimeout(updateInstagramCarouselControls, 600);
+  }
 }
 
 // Staggered reveal: any [data-reveal-group] container has its direct children
@@ -105,13 +112,176 @@ function setupReveal() {
   });
 }
 
+function setupGalleryCarousel() {
+  const carousel = document.querySelector("[data-gallery-carousel]");
+  if (!carousel) return;
+
+  const track = carousel.querySelector("[data-gallery-track]");
+  const prev = carousel.querySelector("[data-gallery-prev]");
+  const next = carousel.querySelector("[data-gallery-next]");
+  const status = carousel.querySelector("[data-gallery-status]");
+
+  if (!track || !prev || !next) return;
+
+  const getScrollStep = () => {
+    const firstCard = track.querySelector(".gallery-card");
+    const trackStyles = window.getComputedStyle(track);
+    const gap = parseFloat(trackStyles.columnGap || trackStyles.gap) || 0;
+    const cardWidth = firstCard ? firstCard.getBoundingClientRect().width : track.clientWidth;
+    const cardsPerPage = Math.max(1, Math.round((track.clientWidth + gap) / Math.max(1, cardWidth + gap)));
+    return {
+      cardsPerPage,
+      step: cardsPerPage * (cardWidth + gap),
+    };
+  };
+
+  const getMaxScroll = () => Math.max(0, track.scrollWidth - track.clientWidth);
+
+  const updateControls = () => {
+    const maxScroll = getMaxScroll();
+    const scrollLeft = Math.round(track.scrollLeft);
+    prev.disabled = scrollLeft <= 1;
+    next.disabled = scrollLeft >= maxScroll - 1;
+
+    if (status) {
+      const { cardsPerPage, step } = getScrollStep();
+      const totalCards = track.querySelectorAll(".gallery-card").length;
+      const totalPages = Math.max(1, Math.ceil(totalCards / cardsPerPage));
+      const currentPage = Math.min(Math.max(1, Math.round(scrollLeft / Math.max(1, step)) + 1), totalPages);
+      status.textContent = "Gallery page " + currentPage + " of " + totalPages;
+    }
+  };
+
+  const scrollByPage = (direction) => {
+    const { step } = getScrollStep();
+    track.scrollBy({
+      left: direction * step,
+      behavior: prefersReducedMotion.matches ? "auto" : "smooth",
+    });
+  };
+
+  prev.addEventListener("click", () => scrollByPage(-1));
+  next.addEventListener("click", () => scrollByPage(1));
+  track.addEventListener("scroll", () => window.requestAnimationFrame(updateControls), { passive: true });
+  window.addEventListener("resize", updateControls);
+  updateControls();
+}
+
+function setupInstagramCarousel() {
+  const carousel = document.querySelector("[data-instagram-carousel]");
+  if (!carousel) return;
+
+  const track = carousel.querySelector("[data-instagram-track]");
+  const prev = carousel.querySelector("[data-instagram-prev]");
+  const next = carousel.querySelector("[data-instagram-next]");
+  const status = carousel.querySelector("[data-instagram-status]");
+
+  if (!track || !prev || !next) return;
+
+  const posts = Array.isArray(window.HOB_INSTAGRAM_POSTS)
+    ? window.HOB_INSTAGRAM_POSTS
+    : [];
+
+  track.replaceChildren();
+
+  posts.forEach((postUrl) => {
+    const embedUrl = getInstagramEmbedUrl(postUrl);
+    if (!embedUrl) return;
+
+    const slide = document.createElement("article");
+    slide.className = "instagram-slide";
+
+    const blockquote = document.createElement("blockquote");
+    blockquote.className = "instagram-media";
+    blockquote.setAttribute("data-instgrm-captioned", "");
+    blockquote.setAttribute("data-instgrm-permalink", embedUrl);
+    blockquote.setAttribute("data-instgrm-version", "14");
+
+    const link = document.createElement("a");
+    link.href = embedUrl;
+    link.target = "_blank";
+    link.rel = "noopener";
+    link.textContent = "View this reel on Instagram";
+
+    blockquote.append(link);
+    slide.append(blockquote);
+    track.append(slide);
+  });
+
+  const getScrollStep = () => {
+    const firstCard = track.querySelector(".instagram-slide");
+    const trackStyles = window.getComputedStyle(track);
+    const gap = parseFloat(trackStyles.columnGap || trackStyles.gap) || 0;
+    const cardWidth = firstCard ? firstCard.getBoundingClientRect().width : track.clientWidth;
+    const cardsPerPage = Math.max(1, Math.round((track.clientWidth + gap) / Math.max(1, cardWidth + gap)));
+    return {
+      cardsPerPage,
+      step: cardsPerPage * (cardWidth + gap),
+    };
+  };
+
+  const getMaxScroll = () => Math.max(0, track.scrollWidth - track.clientWidth);
+
+  const updateControls = () => {
+    const maxScroll = getMaxScroll();
+    const scrollLeft = Math.round(track.scrollLeft);
+    const allVisible = maxScroll <= 1;
+    carousel.classList.toggle("is-all-visible", allVisible);
+    prev.disabled = allVisible || scrollLeft <= 1;
+    next.disabled = allVisible || scrollLeft >= maxScroll - 1;
+
+    if (status) {
+      const { cardsPerPage, step } = getScrollStep();
+      const totalCards = track.querySelectorAll(".instagram-slide").length;
+      const totalPages = Math.max(1, Math.ceil(totalCards / cardsPerPage));
+      const currentPage = Math.min(Math.max(1, Math.round(scrollLeft / Math.max(1, step)) + 1), totalPages);
+      status.textContent = "Instagram reels page " + currentPage + " of " + totalPages;
+    }
+  };
+
+  const scrollByPage = (direction) => {
+    const { step } = getScrollStep();
+    track.scrollBy({
+      left: direction * step,
+      behavior: prefersReducedMotion.matches ? "auto" : "smooth",
+    });
+  };
+
+  prev.addEventListener("click", () => scrollByPage(-1));
+  next.addEventListener("click", () => scrollByPage(1));
+  track.addEventListener("scroll", () => window.requestAnimationFrame(updateControls), { passive: true });
+  window.addEventListener("resize", updateControls);
+  updateInstagramCarouselControls = updateControls;
+  updateControls();
+  processInstagramEmbeds();
+}
+
+function getInstagramEmbedUrl(postUrl) {
+  try {
+    const url = new URL(postUrl);
+    if (!/(^|\.)instagram\.com$/.test(url.hostname)) return "";
+    url.protocol = "https:";
+    url.hostname = "www.instagram.com";
+    url.hash = "";
+    url.search = "?utm_source=ig_embed&utm_campaign=loading";
+    if (!url.pathname.endsWith("/")) {
+      url.pathname += "/";
+    }
+    return url.toString();
+  } catch (error) {
+    return "";
+  }
+}
+
 window.addEventListener("scroll", requestScrollUpdate, { passive: true });
 window.addEventListener("resize", requestScrollUpdate);
 prefersReducedMotion.addEventListener("change", requestScrollUpdate);
 document.addEventListener("DOMContentLoaded", () => {
   requestScrollUpdate();
+  setupInstagramCarousel();
   setupInstagramEmbed();
   setupReveal();
+  setupGalleryCarousel();
 });
 
 requestScrollUpdate();
