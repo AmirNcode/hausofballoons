@@ -124,6 +124,7 @@ function setupGalleryCarousel() {
   if (!track || !prev || !next) return;
 
   renderGalleryImages(track);
+  setupGalleryLightbox(track);
 
   const getScrollStep = () => {
     const firstCard = track.querySelector(".gallery-card");
@@ -169,21 +170,29 @@ function setupGalleryCarousel() {
   updateControls();
 }
 
-function renderGalleryImages(track) {
-  const images = Array.isArray(window.HOB_GALLERY_IMAGES)
-    ? window.HOB_GALLERY_IMAGES
+function getGalleryImages() {
+  return Array.isArray(window.HOB_GALLERY_IMAGES)
+    ? window.HOB_GALLERY_IMAGES.filter((image) => image && image.src)
     : [];
+}
+
+function renderGalleryImages(track) {
+  const images = getGalleryImages();
 
   track.replaceChildren();
 
-  images.forEach((image) => {
-    if (!image || !image.src) return;
-
+  images.forEach((image, index) => {
     const caption = image.caption || image.file || "Gallery image";
     const figure = document.createElement("figure");
     figure.className = "gallery-card";
 
-    const frame = document.createElement("div");
+    const button = document.createElement("button");
+    button.className = "gallery-card__button";
+    button.type = "button";
+    button.setAttribute("data-gallery-open", String(index));
+    button.setAttribute("aria-label", "View " + caption + " larger");
+
+    const frame = document.createElement("span");
     frame.className = "gallery-card__frame";
 
     const img = document.createElement("img");
@@ -196,8 +205,100 @@ function renderGalleryImages(track) {
     figcaption.textContent = caption;
 
     frame.append(img);
-    figure.append(frame, figcaption);
+    button.append(frame);
+    figure.append(button, figcaption);
     track.append(figure);
+  });
+}
+
+function setupGalleryLightbox(track) {
+  const lightbox = document.querySelector("[data-gallery-lightbox]");
+  if (!lightbox) return;
+
+  const imageEl = lightbox.querySelector("[data-gallery-lightbox-image]");
+  const captionEl = lightbox.querySelector("[data-gallery-lightbox-caption]");
+  const closeButton = lightbox.querySelector("[data-gallery-lightbox-close]");
+  const prevButton = lightbox.querySelector("[data-gallery-lightbox-prev]");
+  const nextButton = lightbox.querySelector("[data-gallery-lightbox-next]");
+  const images = getGalleryImages();
+
+  if (!imageEl || !captionEl || !closeButton || !prevButton || !nextButton || !images.length) return;
+
+  let currentIndex = 0;
+  let previousFocus = null;
+
+  const updateLightbox = () => {
+    const image = images[currentIndex];
+    const caption = image.caption || image.file || "Gallery image";
+
+    imageEl.src = image.src;
+    imageEl.alt = caption;
+    captionEl.textContent = caption;
+
+    const singleImage = images.length <= 1;
+    prevButton.disabled = singleImage;
+    nextButton.disabled = singleImage;
+  };
+
+  const showLightboxImage = (index) => {
+    currentIndex = (index + images.length) % images.length;
+    updateLightbox();
+  };
+
+  const openLightbox = (index) => {
+    previousFocus = document.activeElement;
+    showLightboxImage(index);
+    lightbox.classList.add("is-open");
+    lightbox.setAttribute("aria-hidden", "false");
+    document.body.classList.add("gallery-lightbox-open");
+    closeButton.focus({ preventScroll: true });
+  };
+
+  const closeLightbox = () => {
+    lightbox.classList.remove("is-open");
+    lightbox.setAttribute("aria-hidden", "true");
+    document.body.classList.remove("gallery-lightbox-open");
+    imageEl.removeAttribute("src");
+
+    if (previousFocus && typeof previousFocus.focus === "function") {
+      previousFocus.focus({ preventScroll: true });
+    }
+  };
+
+  const moveLightbox = (direction) => {
+    showLightboxImage(currentIndex + direction);
+  };
+
+  track.addEventListener("click", (event) => {
+    const openButton = event.target.closest("[data-gallery-open]");
+    if (!openButton || !track.contains(openButton)) return;
+
+    openLightbox(Number(openButton.getAttribute("data-gallery-open")) || 0);
+  });
+
+  closeButton.addEventListener("click", closeLightbox);
+  prevButton.addEventListener("click", () => moveLightbox(-1));
+  nextButton.addEventListener("click", () => moveLightbox(1));
+
+  lightbox.addEventListener("click", (event) => {
+    if (event.target === lightbox) {
+      closeLightbox();
+    }
+  });
+
+  document.addEventListener("keydown", (event) => {
+    if (!lightbox.classList.contains("is-open")) return;
+
+    if (event.key === "Escape") {
+      event.preventDefault();
+      closeLightbox();
+    } else if (event.key === "ArrowLeft") {
+      event.preventDefault();
+      moveLightbox(-1);
+    } else if (event.key === "ArrowRight") {
+      event.preventDefault();
+      moveLightbox(1);
+    }
   });
 }
 

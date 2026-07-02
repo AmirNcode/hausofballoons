@@ -199,6 +199,38 @@
       </div>
     </section>
 
+    <div class="gallery-lightbox" data-gallery-lightbox aria-hidden="true">
+      <div class="gallery-lightbox__dialog" role="dialog" aria-modal="true" aria-label="Expanded gallery image">
+        <button class="gallery-lightbox__close" type="button" aria-label="Close expanded gallery image"
+          data-gallery-lightbox-close>
+          <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+            <path d="M6 6l12 12" />
+            <path d="M18 6 6 18" />
+          </svg>
+        </button>
+
+        <figure class="gallery-lightbox__figure">
+          <img class="gallery-lightbox__image" src="" alt="" data-gallery-lightbox-image>
+          <figcaption class="gallery-lightbox__caption" data-gallery-lightbox-caption></figcaption>
+        </figure>
+
+        <div class="gallery-lightbox__controls" aria-label="Expanded gallery navigation">
+          <button class="gallery-arrow gallery-lightbox__arrow" type="button"
+            aria-label="Show previous expanded gallery image" data-gallery-lightbox-prev>
+            <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+              <path d="M15 18l-6-6 6-6" />
+            </svg>
+          </button>
+          <button class="gallery-arrow gallery-lightbox__arrow" type="button"
+            aria-label="Show next expanded gallery image" data-gallery-lightbox-next>
+            <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+              <path d="M9 6l6 6-6 6" />
+            </svg>
+          </button>
+        </div>
+      </div>
+    </div>
+
     <section class="blank-section about" id="about" aria-labelledby="about-title">
       <div class="section-shell">
         <p class="section-eyebrow">Our story</p>
