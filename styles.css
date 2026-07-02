@@ -637,14 +637,16 @@ body.gallery-lightbox-open {
   position: relative;
   display: grid;
   gap: clamp(14px, 2.2vw, 20px);
-  width: min(94vw, 900px);
+  width: fit-content;
+  max-width: min(96vw, 1120px);
   max-height: 92svh;
   align-content: center;
 }
 
 .gallery-lightbox__figure {
   display: grid;
-  width: min(100%, 860px);
+  width: fit-content;
+  max-width: min(96vw, 1120px);
   margin: 0 auto;
   overflow: hidden;
   background: var(--white);
@@ -654,8 +656,11 @@ body.gallery-lightbox-open {
 }
 
 .gallery-lightbox__image {
-  width: 100%;
-  height: min(68svh, 660px);
+  display: block;
+  width: auto;
+  height: auto;
+  max-width: min(96vw, 1120px);
+  max-height: min(74svh, 760px);
   object-fit: contain;
   background: var(--white);
 }
