@@ -86,11 +86,16 @@ export function buildEmailHtml({ name, totalAttending } = {}) {
           <a href="${EVENT.icsUrl}" style="display:inline-block;margin:0 6px 10px;padding:13px 26px;background:#8d0b0b;color:#ffffff;font-family:Helvetica,Arial,sans-serif;font-size:15px;font-weight:bold;text-decoration:none;border-radius:999px;">Add to calendar</a>
           <a href="${EVENT.googleCalUrl}" style="display:inline-block;margin:0 6px 10px;padding:12px 24px;border:2px solid #8d0b0b;color:#8d0b0b;font-family:Helvetica,Arial,sans-serif;font-size:15px;font-weight:bold;text-decoration:none;border-radius:999px;">Google Calendar</a>
         </td></tr>
-        <tr><td style="padding:16px 36px 36px;text-align:center;">
+        <tr><td style="padding:16px 36px 6px;text-align:center;">
           <p style="margin:0;font-family:Georgia,'Times New Roman',serif;font-style:italic;color:#ef6149;font-size:15px;">See you on the rooftop.</p>
         </td></tr>
+        <tr><td style="padding:2px 36px 32px;text-align:center;">
+          <p style="margin:0;font-family:Helvetica,Arial,sans-serif;font-size:14px;line-height:1.9;">
+            <a href="${SITE_URL}" style="color:#8d0b0b;text-decoration:none;margin:0 12px;">🌐&nbsp;hausofballoons.ca</a>
+            <a href="https://instagram.com/hausofballoons.ca" style="color:#8d0b0b;text-decoration:none;margin:0 12px;">📸&nbsp;@hausofballoons.ca</a>
+          </p>
+        </td></tr>
       </table>
-      <p style="margin:16px 0 0;font-family:Helvetica,Arial,sans-serif;color:#a08c8c;font-size:11px;">701-107 East 3rd Street, Vancouver</p>
     </td></tr>
   </table>
 </body>
@@ -119,6 +124,10 @@ Google Calendar: ${EVENT.googleCalUrl}
 Directions:      ${EVENT.mapUrl}
 
 See you on the rooftop.
+
+Website:   ${SITE_URL}
+Instagram: https://instagram.com/hausofballoons.ca
+
 Haus of Balloons`;
 }
 

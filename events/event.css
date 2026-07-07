@@ -255,31 +255,6 @@
   color: rgba(141, 11, 11, 0.7);
 }
 
-/* Footer ------------------------------------------------------------ */
-.ev-foot {
-  position: relative;
-  z-index: 1;
-  padding: clamp(30px, 6vw, 56px) 20px clamp(40px, 8vw, 72px);
-  text-align: center;
-  font-size: 0.95rem;
-  line-height: 1.6;
-}
-
-.ev-foot a {
-  color: var(--burgundy);
-  text-decoration: underline;
-  text-underline-offset: 3px;
-}
-
-.ev-foot__brand {
-  margin: 10px 0 0;
-  font-family: var(--font-display);
-  font-style: italic;
-  font-weight: 600;
-  font-size: 1.1rem;
-  color: var(--coral);
-}
-
 /* Respect reduced motion — hide the ambient confetti entirely -------- */
 @media (prefers-reduced-motion: reduce) {
   .confetti-fall {
