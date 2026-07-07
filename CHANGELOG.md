@@ -79,6 +79,26 @@
 
 ## Changelog
 
+### 2026-07-07
+
+- **Launch party event page** (`events/launch-party/`) — a hidden, reusable event
+  page with a Netlify RSVP form, kept off search (`noindex`, not in nav/sitemap)
+  and shared privately by link. Spec:
+  `docs/superpowers/specs/2026-07-07-launch-party-event-page-design.md`.
+  - **Structure:** `events/event.css` is a shared events stylesheet (reused by
+    future events); each event lives in its own `events/<name>/` subfolder. Pages
+    reuse the root `styles.css` brand tokens, `.btn`, `.quote-form`, `.thanks`,
+    and balloon SVGs — no new dependencies.
+  - **Content:** all-white rooftop launch party, Sun Jul 12 2026, 3–10 PM,
+    701-107 East 3rd St, Vancouver. Detail cards (theme = all white, DJ DAFO,
+    drinks/sunset views, Velvet Spoon, map link). RSVP form fields: name, total
+    attending (incl. them), email, optional note. Netlify form `launch-party-rsvp`.
+  - **Confirmation** (`events/launch-party/thank-you/`): recap + Add to Calendar
+    (`.ics` with America/Vancouver VTIMEZONE + Google Calendar link) + directions,
+    and a note that details are also emailed.
+  - **Motion:** CSS-only floating balloons + slowly falling confetti, hidden under
+    `prefers-reduced-motion`.
+
 ### 2026-07-02
 
 - **Gallery image type fix:** The gallery broke after PNGs were replaced with JPEGs

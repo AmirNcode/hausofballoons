@@ -1,0 +1,288 @@
+/* Haus of Balloons — shared events stylesheet.
+ *
+ * Loaded AFTER /styles.css, so it inherits the brand tokens (:root), the reset,
+ * .btn, .balloon, .deco/.blob, @keyframes float, the .quote-form inputs, .thanks,
+ * and the global prefers-reduced-motion killswitch. Only event-specific layout +
+ * the falling-confetti animation live here. Reusable by any /events/<name>/ page.
+ */
+
+/* Page shell — bright, airy, white with soft colour glows.
+ * The background lives on <body class="ev-page"> so the fixed confetti layer
+ * (below) shows through the transparent .ev content areas. */
+.ev-page {
+  background:
+    radial-gradient(120% 90% at 50% -10%, rgba(239, 159, 177, 0.22), transparent 60%),
+    radial-gradient(90% 70% at 100% 4%, rgba(230, 163, 56, 0.16), transparent 55%),
+    radial-gradient(80% 70% at 0% 8%, rgba(92, 184, 154, 0.14), transparent 55%),
+    var(--cream);
+}
+
+.ev {
+  position: relative;
+  overflow: hidden;
+  background: transparent;
+}
+
+.ev__content {
+  position: relative;
+  z-index: 1;
+}
+
+/* Falling confetti — CSS only, fixed full-viewport ambient layer ----- */
+.confetti-fall {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.confetti-fall i {
+  position: absolute;
+  top: -12vh;
+  width: 9px;
+  height: 14px;
+  border-radius: 2px;
+  opacity: 0.85;
+  animation: ev-fall linear infinite;
+}
+
+@keyframes ev-fall {
+  0% {
+    transform: translate3d(0, -12vh, 0) rotate(0deg);
+  }
+  100% {
+    transform: translate3d(14px, 112vh, 0) rotate(620deg);
+  }
+}
+
+/* 16 pieces: staggered lanes, colours, speeds; negative delays pre-fill screen */
+.confetti-fall i:nth-child(1)  { left: 4%;  background: var(--coral);    animation-duration: 12s; animation-delay: -1s;  }
+.confetti-fall i:nth-child(2)  { left: 11%; background: var(--marigold); animation-duration: 15s; animation-delay: -6s;  }
+.confetti-fall i:nth-child(3)  { left: 18%; background: var(--mint);     animation-duration: 10s; animation-delay: -3s;  }
+.confetti-fall i:nth-child(4)  { left: 25%; background: var(--pink);     animation-duration: 13s; animation-delay: -9s;  }
+.confetti-fall i:nth-child(5)  { left: 32%; background: var(--lilac);    animation-duration: 11s; animation-delay: -2s;  }
+.confetti-fall i:nth-child(6)  { left: 39%; background: var(--marigold); animation-duration: 14s; animation-delay: -7s;  }
+.confetti-fall i:nth-child(7)  { left: 46%; background: var(--coral);    animation-duration: 9s;  animation-delay: -4s;  }
+.confetti-fall i:nth-child(8)  { left: 53%; background: var(--mint);     animation-duration: 13s; animation-delay: -11s; }
+.confetti-fall i:nth-child(9)  { left: 60%; background: var(--pink);     animation-duration: 12s; animation-delay: -1.5s;}
+.confetti-fall i:nth-child(10) { left: 67%; background: var(--lilac);    animation-duration: 15s; animation-delay: -8s;  }
+.confetti-fall i:nth-child(11) { left: 74%; background: var(--coral);    animation-duration: 10s; animation-delay: -5s;  }
+.confetti-fall i:nth-child(12) { left: 81%; background: var(--marigold); animation-duration: 13s; animation-delay: -2.5s;}
+.confetti-fall i:nth-child(13) { left: 88%; background: var(--mint);     animation-duration: 11s; animation-delay: -10s; }
+.confetti-fall i:nth-child(14) { left: 94%; background: var(--pink);     animation-duration: 14s; animation-delay: -6.5s;}
+.confetti-fall i:nth-child(15) { left: 8%;  background: var(--lilac);    animation-duration: 12.5s; animation-delay: -12s;}
+.confetti-fall i:nth-child(16) { left: 70%; background: var(--coral);    animation-duration: 9.5s;  animation-delay: -7.5s;}
+/* alternate a few to squares/circles for variety */
+.confetti-fall i:nth-child(3n) { border-radius: 50%; height: 9px; }
+.confetti-fall i:nth-child(4n) { border-radius: 1px; height: 16px; width: 7px; }
+
+/* Hero -------------------------------------------------------------- */
+.ev-hero {
+  position: relative;
+  text-align: center;
+  padding: clamp(52px, 11vh, 120px) 20px clamp(28px, 6vh, 56px);
+}
+
+/* Keep hero text above the decorative balloons/confetti */
+.ev-hero > :not(.deco) {
+  position: relative;
+  z-index: 1;
+}
+
+.ev-hero__lead {
+  max-width: 16ch;
+  margin: 0 auto clamp(14px, 3vw, 22px);
+  font-family: var(--font-display);
+  font-optical-sizing: auto;
+  font-style: italic;
+  font-weight: 600;
+  font-size: clamp(1.1rem, 3vw, 1.65rem);
+  line-height: 1.2;
+  color: var(--burgundy);
+}
+
+.ev-logo {
+  width: min(78vw, 520px);
+  height: auto;
+  margin: 0 auto;
+}
+
+.ev-when {
+  margin: clamp(22px, 4.5vw, 34px) 0 0;
+  font-family: var(--font-display);
+  font-optical-sizing: auto;
+  font-weight: 800;
+  font-size: clamp(1.7rem, 5.5vw, 3rem);
+  line-height: 1.04;
+}
+
+.ev-when small {
+  display: block;
+  margin-top: 10px;
+  font-family: var(--font-body);
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  font-size: clamp(0.72rem, 1.6vw, 0.9rem);
+  color: var(--coral);
+}
+
+.ev-tagline {
+  margin: clamp(16px, 3vw, 24px) auto 0;
+  max-width: 22ch;
+  font-family: var(--font-display);
+  font-style: italic;
+  font-weight: 400;
+  font-size: clamp(1.1rem, 2.8vw, 1.6rem);
+  color: var(--burgundy);
+}
+
+/* Sections ---------------------------------------------------------- */
+.ev-section {
+  position: relative;
+  z-index: 1;
+  width: min(88vw, 1000px);
+  margin: 0 auto;
+  padding: clamp(24px, 6vw, 52px) 0;
+}
+
+.ev-eyebrow {
+  margin: 0 0 8px;
+  text-align: center;
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  font-size: 0.72rem;
+  font-weight: 700;
+  color: var(--coral);
+}
+
+.ev-h2 {
+  margin: 0 0 clamp(20px, 3.5vw, 32px);
+  text-align: center;
+  font-family: var(--font-display);
+  font-optical-sizing: auto;
+  font-weight: 800;
+  font-size: clamp(1.55rem, 4.5vw, 2.3rem);
+  line-height: 1.05;
+}
+
+/* Detail cards ------------------------------------------------------ */
+.ev-details {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: clamp(14px, 2vw, 20px);
+}
+
+.ev-card {
+  display: flex;
+  gap: 14px;
+  align-items: flex-start;
+  padding: clamp(18px, 2.5vw, 26px);
+  background: var(--white);
+  border: 1px solid rgba(141, 11, 11, 0.14);
+  border-radius: var(--radius);
+  box-shadow: 0 16px 40px rgba(141, 11, 11, 0.07);
+}
+
+.ev-card__icon {
+  flex: 0 0 auto;
+  font-size: 1.7rem;
+  line-height: 1;
+}
+
+.ev-card__label {
+  margin: 0 0 4px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  font-size: 0.7rem;
+  color: var(--coral);
+}
+
+.ev-card__text {
+  margin: 0;
+  font-size: 1.05rem;
+  line-height: 1.4;
+}
+
+.ev-card a {
+  color: var(--burgundy);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+/* RSVP -------------------------------------------------------------- */
+.ev-rsvp__intro {
+  max-width: 46ch;
+  margin: 0 auto;
+  text-align: center;
+  font-size: clamp(1rem, 1.6vw, 1.12rem);
+  line-height: 1.6;
+}
+
+/* keep the reused .quote-form centred within the events layout */
+.ev-form {
+  margin-top: clamp(24px, 4vw, 40px);
+}
+
+/* Confirmation-page recap + calendar buttons ------------------------ */
+.ev-recap {
+  display: grid;
+  gap: 4px;
+  margin: 4px 0 22px;
+  font-size: clamp(1rem, 1.6vw, 1.15rem);
+  line-height: 1.5;
+}
+
+.ev-recap strong {
+  font-family: var(--font-display);
+  font-weight: 600;
+}
+
+.ev-cal {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 12px;
+}
+
+.ev-note {
+  margin: 22px auto 0;
+  max-width: 42ch;
+  font-size: 0.95rem;
+  line-height: 1.5;
+  color: rgba(141, 11, 11, 0.7);
+}
+
+/* Footer ------------------------------------------------------------ */
+.ev-foot {
+  position: relative;
+  z-index: 1;
+  padding: clamp(30px, 6vw, 56px) 20px clamp(40px, 8vw, 72px);
+  text-align: center;
+  font-size: 0.95rem;
+  line-height: 1.6;
+}
+
+.ev-foot a {
+  color: var(--burgundy);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.ev-foot__brand {
+  margin: 10px 0 0;
+  font-family: var(--font-display);
+  font-style: italic;
+  font-weight: 600;
+  font-size: 1.1rem;
+  color: var(--coral);
+}
+
+/* Respect reduced motion — hide the ambient confetti entirely -------- */
+@media (prefers-reduced-motion: reduce) {
+  .confetti-fall {
+    display: none;
+  }
+}
