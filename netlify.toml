@@ -6,6 +6,12 @@
   publish = "."
   command = "node scripts/generate-gallery-images.js"
 
+# Serverless functions. `submission-created` fires on every Netlify Forms
+# submission; it emails launch-party RSVP guests a confirmation via Resend.
+# Requires the RESEND_API_KEY env var (Site config → Environment variables).
+[functions]
+  directory = "netlify/functions"
+
 # Pretty-print the thank-you success page reliably at /thank-you (the form's
 # action target) regardless of the "Pretty URLs" asset setting.
 [[redirects]]
@@ -13,3 +19,12 @@
   to = "/thank-you/"
   status = 301
   force = false
+
+# Publishing the repo root would otherwise expose the function source at
+# /netlify/functions/*. Hide it (this is the static path, not the invocation
+# path /.netlify/functions/*, so it does not affect function execution).
+[[redirects]]
+  from = "/netlify/*"
+  to = "/404"
+  status = 404
+  force = true

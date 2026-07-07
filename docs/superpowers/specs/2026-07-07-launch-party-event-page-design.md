@@ -87,8 +87,21 @@ events/
 - Nothing pushed to GitHub yet (user testing locally first). Local commits OK.
 - No new runtime dependencies. No build-step change (gallery script untouched).
 
-## Deferred — Phase 2 (Resend confirmation email)
+## Phase 2 — Resend confirmation email (built 2026-07-07)
 
-After Phase 1 is working: on RSVP, email the guest their details + calendar
-invite via Resend. Requires a Netlify Function on the `submission-created`
-event calling the Resend API (RESEND_API_KEY env var). Designed separately.
+On RSVP, email the guest their details + calendar links via Resend.
+
+- **Trigger:** `netlify/functions/submission-created.mjs`, a Netlify
+  event-triggered function that fires after a submission is stored. Filters to
+  `payload.form_name === 'launch-party-rsvp'`; ignores other forms.
+- **Send:** direct `fetch` to the Resend REST API (`POST /emails`) with a
+  `User-Agent` header — no npm dependency. Sends branded HTML + plain-text
+  bodies personalised with the guest name and party size.
+- **Config:** `RESEND_API_KEY` (required); `EVENT_FROM_EMAIL` (optional, must be
+  a Resend-verified sender); `EVENT_REPLY_TO` (optional). Missing key → skip +
+  log, submission still stored.
+- **netlify.toml:** `[functions] directory = "netlify/functions"` and a 404
+  redirect hiding the source at the static `/netlify/*` path (invocation uses
+  `/.netlify/functions/*`, unaffected).
+- **Local limits:** the trigger + send only run on Netlify. Verified locally by
+  syntax-checking the function and rendering the generated email HTML/text.

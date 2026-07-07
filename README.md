@@ -68,6 +68,28 @@ Put web images in `assets/pictures/`. The gallery accepts `.avif`, `.gif`,
 Form detection is on by default, so the `quote` form appears under **Site → Forms**
 after the first deploy. Submissions are stored in the dashboard and emailed.
 
+## Event pages & RSVP emails
+
+Hidden, link-only event pages live under `events/` (see
+`events/launch-party/`). They are `noindex` and not in the nav or sitemap. The
+shared `events/event.css` is reused by each event's subfolder.
+
+RSVP submissions use a Netlify form (`launch-party-rsvp`). On each submission,
+the `netlify/functions/submission-created.mjs` function emails the guest a
+confirmation via **Resend**. To enable it:
+
+1. **Set environment variables** (Site configuration → Environment variables):
+   - `RESEND_API_KEY` — **required**. From your Resend dashboard.
+   - `EVENT_FROM_EMAIL` — optional. Sender, e.g. `Haus of Balloons <hello@hausofballoons.ca>`.
+     Must be an address on a **Resend-verified domain**; defaults to that value.
+   - `EVENT_REPLY_TO` — optional reply-to address.
+2. **Verify the sending domain** (`hausofballoons.ca`) in Resend, or the send
+   will fail. For a quick test you can set `EVENT_FROM_EMAIL` to
+   `onboarding@resend.dev`, which only delivers to your own Resend account email.
+
+If `RESEND_API_KEY` is unset the submission is still stored and the site keeps
+working — the guest email is simply skipped (logged in the function logs).
+
 ## Docs
 
 - **[CHANGELOG.md](CHANGELOG.md)** — running log of changes, key decisions, and

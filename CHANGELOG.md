@@ -98,6 +98,14 @@
     and a note that details are also emailed.
   - **Motion:** CSS-only floating balloons + slowly falling confetti, hidden under
     `prefers-reduced-motion`.
+  - **RSVP confirmation email (Resend):** `netlify/functions/submission-created.mjs`
+    is a Netlify event-triggered function that fires after each form submission.
+    For the `launch-party-rsvp` form it emails the guest a branded confirmation
+    (event details + Add to Calendar links) via the Resend REST API. **No npm
+    dependency** — uses the runtime's global `fetch`. Requires the `RESEND_API_KEY`
+    env var (+ optional `EVENT_FROM_EMAIL`, `EVENT_REPLY_TO`); skips gracefully if
+    unset. `netlify.toml` gains a `[functions]` dir and hides the function source
+    from static serving. See README → "Event pages & RSVP emails" for setup.
 
 ### 2026-07-02
 
