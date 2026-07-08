@@ -18,16 +18,16 @@ const SITE_URL = 'https://hausofballoons.ca';
 
 const EVENT = {
   when: 'Sunday, July 12, 2026 · 3:00 – 10:00 PM',
-  address: '701-107 East 3rd Street, Vancouver',
+  address: '701-107 E 3rd Ave, Vancouver',
   theme: 'All white — please come dressed head to toe in white',
   music: 'Music by DJ DAFO',
   rooftop: 'Drinks & Vancouver sunset views',
   catering: 'Catering by Velvet Spoon',
   mapUrl:
-    'https://www.google.com/maps/search/?api=1&query=701-107+East+3rd+Street+Vancouver',
+    'https://www.google.com/maps/search/?api=1&query=107+E+3rd+Ave%2C+Vancouver%2C+BC+V5T+1C7',
   icsUrl: `${SITE_URL}/events/launch-party/launch-party.ics`,
   googleCalUrl:
-    'https://calendar.google.com/calendar/render?action=TEMPLATE&text=Haus+of+Balloons+Launch+Party&dates=20260712T220000Z/20260713T050000Z&details=An+all-white+rooftop+party.+Music+by+DJ+DAFO%2C+drinks%2C+Vancouver+sunset+views%2C+catering+by+Velvet+Spoon.&location=701-107+East+3rd+Street%2C+Vancouver',
+    'https://calendar.google.com/calendar/render?action=TEMPLATE&text=Haus+of+Balloons+Launch+Party&dates=20260712T220000Z/20260713T050000Z&details=An+all-white+rooftop+party.+Music+by+DJ+DAFO%2C+drinks%2C+Vancouver+sunset+views%2C+catering+by+Velvet+Spoon.&location=701-107+E+3rd+Ave%2C+Vancouver%2C+BC+V5T+1C7',
 };
 
 export function escapeHtml(value = '') {
