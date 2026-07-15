@@ -74,9 +74,11 @@ Hidden, link-only event pages live under `events/` (see
 `events/launch-party/`). They are `noindex` and not in the nav or sitemap. The
 shared `events/event.css` is reused by each event's subfolder.
 
-RSVP submissions use a Netlify form (`launch-party-rsvp`). On each submission,
-the `netlify/functions/submission-created.mjs` function emails the guest a
-confirmation via **Resend**. To enable it:
+RSVP submissions (`launch-party-rsvp`) and homepage quote inquiries (`quote`)
+use Netlify Forms. On each submission, the
+`netlify/functions/submission-created.mjs` function emails the guest a branded
+confirmation via **Resend**. Quote inquiries receive an acknowledgement that
+the team will respond with a custom quote within 48 hours. To enable it:
 
 1. **Set environment variables** (Site configuration → Environment variables):
    - `RESEND_API_KEY` — **required**. From your Resend dashboard.

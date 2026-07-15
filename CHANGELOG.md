@@ -6,6 +6,13 @@
 
 ---
 
+## 2026-07-13
+
+- **Homepage inquiry confirmation email:** The Netlify `submission-created`
+  function now sends `quote` form submitters a branded Resend receipt. It
+  matches the launch-party confirmation styling and confirms that the team will
+  respond with a custom quote within 48 hours.
+
 ## Project snapshot
 
 - **What:** One-page marketing site for **Haus of Balloons**, a balloon-decor

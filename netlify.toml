@@ -7,7 +7,8 @@
   command = "node scripts/generate-gallery-images.js"
 
 # Serverless functions. `submission-created` fires on every Netlify Forms
-# submission; it emails launch-party RSVP guests a confirmation via Resend.
+# submission; it emails launch-party RSVP and homepage inquiry guests a
+# confirmation via Resend.
 # Requires the RESEND_API_KEY env var (Site config → Environment variables).
 [functions]
   directory = "netlify/functions"

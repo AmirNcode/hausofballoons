@@ -1,8 +1,8 @@
 // Netlify event-triggered function.
 //
 // Netlify automatically invokes a function named `submission-created` after a
-// form submission is verified and stored. This one emails the guest a booking
-// confirmation for the launch party via the Resend REST API.
+// form submission is verified and stored. This one emails launch-party RSVP
+// guests and homepage inquiry guests confirmations via the Resend REST API.
 //
 // Deliberately dependency-free: it uses the global `fetch` available on the
 // Netlify Node runtime, so the site keeps its zero-dependency, static footprint.
@@ -11,8 +11,8 @@
 // Optional env vars: EVENT_FROM_EMAIL (default below — must be a Resend-verified
 //                    sender), EVENT_REPLY_TO
 //
-// Only the `launch-party-rsvp` form triggers an email; other forms (e.g. the
-// site's `quote` form) are ignored.
+// Only the `launch-party-rsvp` and site's `quote` forms trigger email; other
+// forms are ignored.
 
 const SITE_URL = 'https://hausofballoons.ca';
 
@@ -131,6 +131,64 @@ Instagram: https://instagram.com/hausofballoons.ca
 Haus of Balloons`;
 }
 
+export function buildQuoteEmailHtml({ name } = {}) {
+  const safeName = escapeHtml(name).trim() || 'there';
+
+  return `<!doctype html>
+<html lang="en">
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"></head>
+<body style="margin:0;padding:0;background:#faf5f2;">
+  <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background:#faf5f2;padding:28px 12px;">
+    <tr><td align="center">
+      <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="max-width:560px;background:#ffffff;border-radius:20px;overflow:hidden;box-shadow:0 18px 50px rgba(141,11,11,.08);">
+        <tr><td style="height:6px;background:linear-gradient(90deg,#ef6149,#e6a338,#5cb89a,#ef9fb1,#b1a1dd);"></td></tr>
+        <tr><td style="padding:36px 36px 8px;text-align:center;">
+          <p style="margin:0 0 6px;font-family:Georgia,'Times New Roman',serif;font-style:italic;color:#8d0b0b;font-size:16px;">We&rsquo;ve received your inquiry</p>
+          <h1 style="margin:0;font-family:Georgia,'Times New Roman',serif;color:#8d0b0b;font-size:30px;line-height:1.1;letter-spacing:.02em;">HAUS OF BALLOONS</h1>
+          <p style="margin:10px 0 0;font-family:Helvetica,Arial,sans-serif;color:#ef6149;font-size:12px;font-weight:bold;letter-spacing:.16em;text-transform:uppercase;">Custom Balloon Moments</p>
+        </td></tr>
+        <tr><td style="padding:24px 36px 8px;">
+          <p style="margin:0 0 12px;font-family:Helvetica,Arial,sans-serif;color:#3a2a2a;font-size:16px;line-height:1.6;">Hi ${safeName},</p>
+          <p style="margin:0 0 12px;font-family:Helvetica,Arial,sans-serif;color:#3a2a2a;font-size:16px;line-height:1.6;">Thank you for reaching out to Haus of Balloons. We&rsquo;ve received your event details and are excited to learn more about what you&rsquo;re planning.</p>
+          <p style="margin:0;font-family:Helvetica,Arial,sans-serif;color:#3a2a2a;font-size:16px;line-height:1.6;">A member of our team will respond with your custom quote within <strong>48 hours</strong>.</p>
+        </td></tr>
+        <tr><td style="padding:24px 36px 8px;text-align:center;">
+          <a href="${SITE_URL}" style="display:inline-block;padding:13px 26px;background:#8d0b0b;color:#ffffff;font-family:Helvetica,Arial,sans-serif;font-size:15px;font-weight:bold;text-decoration:none;border-radius:999px;">Visit Haus of Balloons</a>
+        </td></tr>
+        <tr><td style="padding:16px 36px 6px;text-align:center;">
+          <p style="margin:0;font-family:Georgia,'Times New Roman',serif;font-style:italic;color:#ef6149;font-size:15px;">We can&rsquo;t wait to bring your vision to life.</p>
+        </td></tr>
+        <tr><td style="padding:2px 36px 32px;text-align:center;">
+          <p style="margin:0;font-family:Helvetica,Arial,sans-serif;font-size:14px;line-height:1.9;">
+            <a href="${SITE_URL}" style="color:#8d0b0b;text-decoration:none;margin:0 12px;">🌐&nbsp;hausofballoons.ca</a>
+            <a href="https://instagram.com/hausofballoons.ca" style="color:#8d0b0b;text-decoration:none;margin:0 12px;">📸&nbsp;@hausofballoons.ca</a>
+          </p>
+        </td></tr>
+      </table>
+    </td></tr>
+  </table>
+</body>
+</html>`;
+}
+
+export function buildQuoteEmailText({ name } = {}) {
+  const safeName = (name || '').trim() || 'there';
+  return `We received your inquiry — Haus of Balloons
+
+Hi ${safeName},
+
+Thank you for reaching out to Haus of Balloons. We've received your event details and are excited to learn more about what you're planning.
+
+A member of our team will respond with your custom quote within 48 hours.
+
+We can't wait to bring your vision to life.
+
+Website:   ${SITE_URL}
+Instagram: https://instagram.com/hausofballoons.ca
+
+Haus of Balloons`;
+}
+
 export const handler = async (event) => {
   let submission;
   try {
@@ -141,9 +199,9 @@ export const handler = async (event) => {
 
   const payload = submission.payload || {};
 
-  // Only the launch-party RSVP form should trigger a confirmation email.
-  if (payload.form_name !== 'launch-party-rsvp') {
-    return { statusCode: 200, body: 'Ignored — not the launch-party RSVP form' };
+  const formName = payload.form_name;
+  if (formName !== 'launch-party-rsvp' && formName !== 'quote') {
+    return { statusCode: 200, body: 'Ignored — not a confirmation-email form' };
   }
 
   const data = payload.data || {};
@@ -154,19 +212,26 @@ export const handler = async (event) => {
 
   const apiKey = process.env.RESEND_API_KEY;
   if (!apiKey) {
-    console.error('RESEND_API_KEY is not set — cannot send RSVP confirmation email.');
+    console.error('RESEND_API_KEY is not set — cannot send confirmation email.');
     return { statusCode: 200, body: 'Skipped — email not configured' };
   }
 
   const from = process.env.EVENT_FROM_EMAIL || 'Haus of Balloons <hello@hausofballoons.ca>';
   const replyTo = process.env.EVENT_REPLY_TO;
 
+  const isQuote = formName === 'quote';
   const body = {
     from,
     to,
-    subject: 'You’re on the list — Haus of Balloons Launch Party',
-    html: buildEmailHtml({ name: data.name, totalAttending: data['total-attending'] }),
-    text: buildEmailText({ name: data.name, totalAttending: data['total-attending'] }),
+    subject: isQuote
+      ? 'We received your inquiry — Haus of Balloons'
+      : 'You’re on the list — Haus of Balloons Launch Party',
+    html: isQuote
+      ? buildQuoteEmailHtml({ name: data.name })
+      : buildEmailHtml({ name: data.name, totalAttending: data['total-attending'] }),
+    text: isQuote
+      ? buildQuoteEmailText({ name: data.name })
+      : buildEmailText({ name: data.name, totalAttending: data['total-attending'] }),
   };
   if (replyTo) body.reply_to = replyTo;
 
